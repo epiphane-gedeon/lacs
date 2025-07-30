@@ -67,11 +67,14 @@ body {
     align-items: center;
 }
 
-.nav-logo h2 {
-    color: var(--primary-yellow);
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2px;
+.nav-logo{
+    width: 60px;
+    height: 60px;
+}
+
+.nav-logo img {
+    max-width: 100%;
+    /* height: auto; */
 }
 
 .tagline {
@@ -134,14 +137,19 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    background-color: var(--primary-yellow);
+    padding: 7px;
+    margin: 0 20px;
+    border-radius: 5px;
 }
 
 .bar {
     width: 25px;
-    height: 3px;
+    height: 4px;
     background: var(--text-black);
     margin: 3px 0;
     transition: var(--transition);
+    border-radius: 20px;
 }
 
 /* Logo mobile caché par défaut */
@@ -190,6 +198,7 @@ body {
 .hero-buttons {
     display: flex;
     gap: 1rem;
+    justify-content: space-around;
 }
 
 .btn-primary {
@@ -230,6 +239,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .science-illustration {
@@ -267,7 +277,7 @@ body {
 
 /* Statistics Section */
 .statistics {
-    padding: 80px 0;
+    padding: 10px 0;
     background: var(--primary-yellow);
 }
 
@@ -275,11 +285,20 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    justify-items: end;
 }
 
 .stat-item {
-    text-align: center;
+    /* text-align: center; */
     color: var(--text-black);
+}
+
+.stat-item-header {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: baseline;
+    /* justify-content: space-between; */
+    gap: 1rem;
 }
 
 .stat-icon {
@@ -287,12 +306,12 @@ body {
 }
 
 .stat-icon i {
-    font-size: 3rem;
+    font-size: 2rem;
     color: var(--text-black);
 }
 
 .stat-number {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
@@ -358,11 +377,18 @@ body {
     align-items: center;
     justify-content: center;
     border: 3px solid var(--primary-yellow);
+    overflow: hidden;
 }
 
 .image-placeholder i {
     font-size: 4rem;
     color: var(--primary-yellow);
+}
+
+.image-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
 
 /* News Section */
@@ -420,6 +446,7 @@ body {
 .news-content h3 {
     font-size: 1.3rem;
     margin-bottom: 1rem;
+    margin-top: 1.4rem;
     color: var(--text-black);
 }
 
@@ -686,10 +713,10 @@ body {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 400px;
+    display: flex;
+    /* grid-template-columns: 1fr 400px; */
     gap: 2rem;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
 }
 
@@ -1029,12 +1056,21 @@ body {
 .image-frame {
     position: relative;
     max-width: 100%;
+    height: 400px;
     margin: 0 auto;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     border: 8px solid white;
     background: white;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: var(--transition);
 }
 
 .image-frame::before {
@@ -1463,6 +1499,9 @@ body {
 
 /* Responsive Article Styles */
 @media (max-width: 768px) {
+    .hero-image{
+        display: none;
+    }
     .article-title {
         font-size: 2.5rem;
     }
@@ -1553,13 +1592,6 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-}
-
-.hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
 }
 
 .hero-overlay {
@@ -1853,7 +1885,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.stats-showcase {
+/* .stats-showcase {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -1876,7 +1908,7 @@ body {
 
 .stats-showcase .stat-label {
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 500; *
 }
 
 /* Sidebar Styles */
@@ -2637,7 +2669,9 @@ body {
 
     /* Afficher le logo dans le menu mobile */
     .nav-logo-mobile {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-bottom: 1rem;
         padding-bottom: 1rem;
         border-bottom: 1px solid rgba(255, 215, 0, 0.3);
@@ -2671,7 +2705,7 @@ body {
     }
 
     .contact-content {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 2rem;
     }
 
@@ -2690,6 +2724,7 @@ body {
 
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        justify-items: start;
     }
 
     .news-grid {
@@ -2880,6 +2915,7 @@ body {
 
     .stats-grid {
         grid-template-columns: 1fr;
+        justify-items: start;
     }
 
     .hero-buttons {

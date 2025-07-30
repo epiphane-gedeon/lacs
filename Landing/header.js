@@ -1,0 +1,23 @@
+const handleNavbarScroll = () => {
+    const navbar = document.querySelector('.header');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > 10) {
+            // Menu avec effet glass dès le début du scroll
+            navbar.classList.add('glass-effect');
+        } else {
+            // Menu transparent en haut de page
+            navbar.classList.remove('glass-effect');
+        }
+
+        lastScrollTop = scrollTop;
+    });
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    handleNavbarScroll();
+});
