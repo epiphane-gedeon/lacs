@@ -330,8 +330,8 @@ const handleNewsButtons = () => {
 
             // URLs des articles
             const articleUrls = {
-                'bac-2025': 'article-bac-2025.html',
-                'olympiades-physique': '#', // À créer plus tard
+                'presco-2025-2026': 'activites-prescolaires.html',
+                'invitation-bourse': 'bourse.html', // À créer plus tard
                 'ateliers-ete': '#' // À créer plus tard
             };
 
@@ -372,7 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
     handleCTAButtons();
     handleNewsButtons();
 
-    console.log('L.AC.S website initialized successfully! 🚀');
 });
 
 // Add some interactive features for better UX
