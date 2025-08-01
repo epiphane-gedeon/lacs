@@ -289,6 +289,7 @@ const handleInscriptionButton = () => {
 
     inscriptionBtn.addEventListener('click', () => {
         // You can replace this with actual registration logic
+        window.location.href = 'inscription.html';
         showNotification('Redirection vers la page d\'inscription...', 'success');
 
         // Simulate redirect after 2 seconds

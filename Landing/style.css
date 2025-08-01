@@ -117,6 +117,11 @@ body {
     width: 100%;
 }
 
+.nav-link.active {
+    color: var(--primary-yellow);
+    font-weight: bold;
+}
+
 .inscription-btn {
     background: var(--primary-yellow);
     color: var(--text-black);
@@ -2150,7 +2155,90 @@ body {
         text-align: center;
     }
 }
+.newsletter {
+    background: var(--text-black);
+    color: var(--text-white);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
 
+.newsletter::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+    animation: float 20s linear infinite;
+    pointer-events: none;
+}
+
+.newsletter-content {
+    position: relative;
+    z-index: 2;
+}
+
+.newsletter h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-yellow);
+}
+
+.newsletter p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-btn {
+    background: var(--primary-yellow);
+    color: var(--text-black);
+    border: none;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.newsletter-btn:hover {
+    background: var(--dark-yellow);
+    transform: translateY(-2px);
+}
 /* Footer */
 .footer {
     background: var(--text-black);
@@ -2172,7 +2260,7 @@ body {
     margin-bottom: 0.5rem;
 }
 .footer-logo img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
 }
 

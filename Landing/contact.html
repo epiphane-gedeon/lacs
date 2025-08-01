@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - L.AC.S | Laboratoire d'ACélération Scientifique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="images/logo-full.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-yellow: #FFD700;
+            --dark-yellow: #E6C200;
+            --text-black: #1a1a1a;
+            --text-white: #ffffff;
+            --text-gray: #666666;
+            --background-light: #fafafa;
+            --border-light: #e0e0e0;
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+            --border-radius: 15px;
+            --gradient-primary: linear-gradient(135deg, var(--primary-yellow) 0%, var(--dark-yellow) 100%);
+            --gradient-dark: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+        }
+
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            line-height: 1.6;
+            color: var(--text-black);
+            background: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-dark);
+            color: var(--text-white);
+            padding: 150px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.1"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--primary-yellow) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            color: var(--primary-yellow);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background: var(--background-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-black);
+        }
+
+        .form-subtitle {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-black);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            cursor: pointer;
+        }
+
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-yellow);
+        }
+
+        .checkbox-label {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient-primary);
+            color: var(--text-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--text-black);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        .submit-btn.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-black);
+            margin-bottom: 1rem;
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-black);
+        }
+
+        .info-details {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .info-link {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .info-link:hover {
+            color: var(--dark-yellow);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-black);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .map-container {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            height: 450px;
+            background: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--text-gray);
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Hours Section */
+        .hours-section {
+            padding: 80px 0;
+            background: var(--text-black);
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hours-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .hours-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .hours-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .hours-card h3 {
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: var(--background-light);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            color: var(--text-black);
+        }
+
+        .faq-question:hover {
+            background: var(--background-light);
+        }
+
+        .faq-question.active {
+            background: var(--background-light);
+            color: var(--primary-yellow);
+        }
+
+        .faq-icon {
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
+        .faq-answer-content {
+            padding: 0 2rem 1.5rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideInDown 0.5s ease;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: slideInDown 0.5s ease;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-black);
+            color: var(--text-white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo h3 {
+            color: var(--primary-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-yellow);
+            color: var(--text-black);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Form Validation */
+        .form-input.error {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+
+        .form-input.success {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .error-text {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-text.show {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header {
+                margin: 0 40px;
+                width: calc(100% - 80px);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(15px);
+                width: calc(100% - 80px);
+                margin: 0 40px;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow-medium);
+                border-radius: 40px;
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-logo-mobile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                margin: 0 20px;
+                width: calc(100% - 40px);
+            }
+
+            .nav-menu {
+                width: calc(100% - 40px);
+                margin: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .info-card {
+                padding: 1.5rem;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="header sticky-nav">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo desktop-logo">
+                    <img src="images/logo.png" alt="L.AC.S Logo">
+                    <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-logo-mobile">
+                        <div class="nav-logo">
+                            <img src="images/logo.png" alt="L.AC.S Logo">
+                            <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
+                        </div>
+                    </li>
+                    <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
+                    <li><a href="apropos.html" class="nav-link">À propos</a></li>
+                    <li><a href="actualites.html" class="nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <button class="inscription-btn">Inscription</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contactez le <span class="highlight">L.AC.S</span></h1>
+                <p>Nous sommes là pour répondre à toutes vos questions et vous accompagner dans votre parcours vers
+                    l'excellence scientifique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h2 class="form-title">Envoyez-nous un message</h2>
+                    <p class="form-subtitle">Remplissez ce formulaire et nous vous répondrons dans les plus brefs
+                        délais.</p>
+
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        Votre message a été envoyé avec succès ! Nous vous répondrons bientôt.
+                    </div>
+
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Une erreur s'est produite. Veuillez réessayer ou nous contacter directement.
+                    </div>
+
+                    <form id="contactForm" novalidate>
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">Prénom *</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            <div class="error-text" id="firstNameError">Veuillez saisir votre prénom.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Nom *</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            <div class="error-text" id="lastNameError">Veuillez saisir votre nom.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                            <div class="error-text" id="emailError">Veuillez saisir une adresse email valide.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Sujet *</label>
+                            <select id="subject" name="subject" class="form-input form-select" required>
+                                <option value="">Choisissez un sujet</option>
+                                <option value="inscription">Demande d'inscription</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="rdv">Prise de rendez-vous</option>
+                                <option value="pedagogie">Questions pédagogiques</option>
+                                <option value="partenariat">Partenariat</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                            <div class="error-text" id="subjectError">Veuillez choisir un sujet.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" rows="5" required
+                                placeholder="Décrivez votre demande en détail..."></textarea>
+                            <div class="error-text" id="messageError">Veuillez saisir votre message.</div>
+                        </div>
+
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="consent" name="consent" class="form-checkbox" required>
+                            <label for="consent" class="checkbox-label">
+                                J'accepte que mes données personnelles soient utilisées pour répondre à ma demande. *
+                            </label>
+                        </div>
+                        <div class="error-text" id="consentError">Veuillez accepter les conditions.</div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="loading-spinner"></span>
+                            <span class="btn-text">Envoyer le message</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="info-title">Adresse</h3>
+                        <div class="info-details">
+                            123 Avenue de la Science<br>
+                            75001 Paris, France<br>
+                            <a href="#" class="info-link">Voir sur la carte</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="info-title">Téléphone</h3>
+                        <div class="info-details">
+                            <a href="tel:+33123456789" class="info-link">+33 1 23 45 67 89</a><br>
+                            <small>Lundi - Vendredi : 8h00 - 18h00</small>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="info-title">Email</h3>
+                        <div class="info-details">
+                            <a href="mailto:contact@lacs.fr" class="info-link">contact@lacs.fr</a><br>
+                            <a href="mailto:admissions@lacs.fr" class="info-link">admissions@lacs.fr</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="info-title">WhatsApp</h3>
+                        <div class="info-details">
+                            <a href="https://wa.me/33123456789" class="info-link">+33 1 23 45 67 89</a><br>
+                            <small>Réponse rapide 7j/7</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Nous Trouver</h2>
+            <p class="section-subtitle">Notre laboratoire se situe au cœur de Paris, facilement accessible par les
+                transports en commun.</p>
+
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Carte Interactive</h3>
+                    <p>123 Avenue de la Science, 75001 Paris</p>
+                    <p>Métro : Ligne 1, 4, 7 - Station Châtelet</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours-section">
+        <div class="container">
+            <div class="hours-content">
+                <h2 class="section-title" style="color: white;">Horaires d'Ouverture</h2>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">Nous sommes disponibles pour vous
+                    accueillir aux horaires suivants :</p>
+
+                <div class="hours-grid">
+                    <div class="hours-card">
+                        <h3><i class="fas fa-chalkboard-teacher"></i> Accueil & Administration</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>8h00 - 18h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
+                            <li><span>Dimanche</span><span>Fermé</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="hours-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Cours & Formations</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>14h00 - 20h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 18h00</span></li>
+                            <li><span>Dimanche</span><span>9h00 - 12h00</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="hours-card">
+                        <h3><i class="fas fa-phone-alt"></i> Support Téléphonique</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>8h00 - 19h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
+                            <li><span>Urgences</span><span>24h/7j WhatsApp</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Questions Fréquentes</h2>
+            <p class="section-subtitle">Trouvez rapidement les réponses à vos questions les plus courantes.</p>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment puis-je inscrire mon enfant au L.AC.S ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            L'inscription se fait en plusieurs étapes : entretien préalable, test de positionnement,
+                            validation du dossier et choix des créneaux. Contactez-nous pour commencer le processus.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels sont les tarifs des formations ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nos tarifs varient selon le niveau et l'intensité de l'accompagnement. Comptez entre 180€ et
+                            350€ par mois. Des facilités de paiement et bourses d'excellence sont disponibles.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous des cours en ligne ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Oui, nous proposons un format hybride avec cours en présentiel et sessions en ligne. Notre
+                            plateforme numérique permet un suivi continu et des ressources accessibles 24h/24.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quelle est la taille des groupes de travail ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nous limitons nos groupes à 8-12 élèves maximum pour garantir un suivi personnalisé. Pour
+                            certains programmes d'excellence, les groupes peuvent être encore plus restreints.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Puis-je visiter vos locaux avant inscription ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolument ! Nous organisons des portes ouvertes chaque premier samedi du mois. Vous pouvez
+                            aussi prendre rendez-vous pour une visite personnalisée.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Restez informé</h2>
+                <p>Abonnez-vous à notre newsletter pour recevoir toutes les actualités du L.AC.S directement dans votre
+                    boîte mail.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                    <button type="submit" class="newsletter-btn">S'abonner</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo-full.png" alt="">
+                </div>
+                <div class="footer-links">
+                    <a href="index.html#accueil">Accueil</a>
+                    <a href="apropos.html">À propos</a>
+                    <a href="actualites.html">Actualités</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 L.AC.S - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Contact Form Management
+        class ContactForm {
+            constructor() {
+                this.form = document.getElementById('contactForm');
+                this.submitBtn = document.getElementById('submitBtn');
+                this.successMessage = document.getElementById('successMessage');
+                this.errorMessage = document.getElementById('errorMessage');
+
+                this.fields = {
+                    firstName: document.getElementById('firstName'),
+                    lastName: document.getElementById('lastName'),
+                    email: document.getElementById('email'),
+                    phone: document.getElementById('phone'),
+                    subject: document.getElementById('subject'),
+                    message: document.getElementById('message'),
+                    consent: document.getElementById('consent')
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+            }
+
+            addEventListeners() {
+                // Form submission
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleSubmit();
+                });
+
+                // Real-time validation
+                Object.keys(this.fields).forEach(fieldName => {
+                    const field = this.fields[fieldName];
+                    field.addEventListener('blur', () => this.validateField(fieldName));
+                    field.addEventListener('input', () => this.clearFieldError(fieldName));
+                });
+            }
+
+            validateField(fieldName) {
+                const field = this.fields[fieldName];
+                const value = field.value.trim();
+                let isValid = true;
+                let errorMessage = '';
+
+                switch (fieldName) {
+                    case 'firstName':
+                    case 'lastName':
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = 'Ce champ est obligatoire.';
+                        } else if (value.length < 2) {
+                            isValid = false;
+                            errorMessage = 'Ce champ doit contenir au moins 2 caractères.';
+                        }
+                        break;
+
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = 'L\'email est obligatoire.';
+                        } else if (!emailRegex.test(value)) {
+                            isValid = false;
+                            errorMessage = 'Veuillez saisir une adresse email valide.';
+                        }
+                        break;
+
+                    case 'phone':
+                        if (value && !/^\+?[\d\s\-\(\)]{10,}$/.test(value)) {
+                            isValid = false;
+                            errorMessage = 'Veuillez saisir un numéro de téléphone valide.';
+                        }
+                        break;
+
+                    case 'subject':
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = 'Veuillez choisir un sujet.';
+                        }
+                        break;
+
+                    case 'message':
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = 'Le message est obligatoire.';
+                        } else if (value.length < 10) {
+                            isValid = false;
+                            errorMessage = 'Le message doit contenir au moins 10 caractères.';
+                        }
+                        break;
+
+                    case 'consent':
+                        if (!field.checked) {
+                            isValid = false;
+                            errorMessage = 'Vous devez accepter les conditions.';
+                        }
+                        break;
+                }
+
+                this.showFieldError(fieldName, isValid, errorMessage);
+                return isValid;
+            }
+
+            showFieldError(fieldName, isValid, errorMessage) {
+                const field = this.fields[fieldName];
+                const errorElement = document.getElementById(`${fieldName}Error`);
+
+                if (isValid) {
+                    field.classList.remove('error');
+                    field.classList.add('success');
+                    errorElement.classList.remove('show');
+                } else {
+                    field.classList.remove('success');
+                    field.classList.add('error');
+                    errorElement.textContent = errorMessage;
+                    errorElement.classList.add('show');
+                }
+            }
+
+            clearFieldError(fieldName) {
+                const field = this.fields[fieldName];
+                const errorElement = document.getElementById(`${fieldName}Error`);
+
+                field.classList.remove('error', 'success');
+                errorElement.classList.remove('show');
+            }
+
+            validateForm() {
+                let isFormValid = true;
+                const requiredFields = ['firstName', 'lastName', 'email', 'subject', 'message', 'consent'];
+
+                requiredFields.forEach(fieldName => {
+                    if (!this.validateField(fieldName)) {
+                        isFormValid = false;
+                    }
+                });
+
+                // Validate optional phone field if filled
+                if (this.fields.phone.value.trim()) {
+                    if (!this.validateField('phone')) {
+                        isFormValid = false;
+                    }
+                }
+
+                return isFormValid;
+            }
+
+            handleSubmit() {
+                // Hide previous messages
+                this.hideMessages();
+
+                // Validate form
+                if (!this.validateForm()) {
+                    this.showError('Veuillez corriger les erreurs dans le formulaire.');
+                    return;
+                }
+
+                // Show loading state
+                this.setLoadingState(true);
+
+                // Simulate form submission
+                setTimeout(() => {
+                    // Simulate success (in real app, this would be an API call)
+                    const success = Math.random() > 0.1; // 90% success rate for demo
+
+                    this.setLoadingState(false);
+
+                    if (success) {
+                        this.showSuccess();
+                        this.resetForm();
+                    } else {
+                        this.showError('Une erreur s\'est produite. Veuillez réessayer.');
+                    }
+                }, 2000);
+            }
+
+            setLoadingState(isLoading) {
+                if (isLoading) {
+                    this.submitBtn.classList.add('loading');
+                    this.submitBtn.disabled = true;
+                    this.submitBtn.querySelector('.btn-text').textContent = 'Envoi en cours...';
+                } else {
+                    this.submitBtn.classList.remove('loading');
+                    this.submitBtn.disabled = false;
+                    this.submitBtn.querySelector('.btn-text').textContent = 'Envoyer le message';
+                }
+            }
+
+            showSuccess() {
+                this.successMessage.classList.add('show');
+                setTimeout(() => {
+                    this.successMessage.classList.remove('show');
+                }, 5000);
+            }
+
+            showError(message) {
+                this.errorMessage.querySelector('i').nextSibling.textContent = ' ' + message;
+                this.errorMessage.classList.add('show');
+                setTimeout(() => {
+                    this.errorMessage.classList.remove('show');
+                }, 5000);
+            }
+
+            hideMessages() {
+                this.successMessage.classList.remove('show');
+                this.errorMessage.classList.remove('show');
+            }
+
+            resetForm() {
+                this.form.reset();
+                Object.keys(this.fields).forEach(fieldName => {
+                    this.clearFieldError(fieldName);
+                });
+            }
+        }
+
+        // FAQ Management
+        class FAQ {
+            constructor() {
+                this.faqItems = document.querySelectorAll('.faq-item');
+                this.init();
+            }
+
+            init() {
+                this.faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question');
+                    const answer = item.querySelector('.faq-answer');
+
+                    question.addEventListener('click', () => {
+                        this.toggleFAQ(question, answer);
+                    });
+                });
+            }
+
+            toggleFAQ(question, answer) {
+                const isActive = question.classList.contains('active');
+
+                // Close all other FAQs
+                this.faqItems.forEach(item => {
+                    item.querySelector('.faq-question').classList.remove('active');
+                    item.querySelector('.faq-answer').classList.remove('active');
+                });
+
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            }
+        }
+
+        // Navigation Management
+        class Navigation {
+            constructor() {
+                this.hamburger = document.querySelector('.hamburger');
+                this.navMenu = document.querySelector('.nav-menu');
+                this.navLinks = document.querySelectorAll('.nav-link');
+                this.header = document.querySelector('.header');
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+                this.initScrollEffect();
+            }
+
+            addEventListeners() {
+                // Hamburger menu toggle
+                this.hamburger.addEventListener('click', () => {
+                    this.toggleMobileMenu();
+                });
+
+                // Close mobile menu when clicking on links
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMobileMenu();
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!this.hamburger.contains(e.target) && !this.navMenu.contains(e.target)) {
+                        this.closeMobileMenu();
+                    }
+                });
+            }
+
+            toggleMobileMenu() {
+                this.hamburger.classList.toggle('active');
+                this.navMenu.classList.toggle('active');
+            }
+
+            closeMobileMenu() {
+                this.hamburger.classList.remove('active');
+                this.navMenu.classList.remove('active');
+            }
+
+            
+        }
+
+        // Scroll Animations
+        class ScrollAnimations {
+            constructor() {
+                this.observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                this.init();
+            }
+
+            init() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-in');
+                        }
+                    });
+                }, this.observerOptions);
+
+                // Observe elements for animation
+                const elementsToAnimate = document.querySelectorAll('.info-card, .hours-card, .faq-item');
+                elementsToAnimate.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(el);
+                });
+            }
+        }
+
+        // Smooth Scrolling
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Interactive Hover Effects
+        function initHoverEffects() {
+            const cards = document.querySelectorAll('.info-card, .hours-card');
+
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize classes
+            new ContactForm();
+            new FAQ();
+            new Navigation();
+            new ScrollAnimations();
+
+            // Initialize utility functions
+            
+            initHoverEffects();
+
+            console.log('Page Contact L.AC.S chargée avec succès! 📧');
+        });
+
+        // Add some interactive effects for better UX
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.submit-btn, .inscription-btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add floating label effect
+            const inputs = document.querySelectorAll('.form-input');
+
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.classList.add('focused');
+                });
+
+                input.addEventListener('blur', function () {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+
+                // Check if input has value on load
+                if (input.value) {
+                    input.parentElement.classList.add('focused');
+                }
+            });
+        });
+    </script>
+    <script src="header.js"></script>
+</body>
+
+</html>

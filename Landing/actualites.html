@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités - L.AC.S | Laboratoire d'ACélération Scientifique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="images/logo-full.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-yellow: #FFD700;
+            --dark-yellow: #E6C200;
+            --text-black: #1a1a1a;
+            --text-white: #ffffff;
+            --text-gray: #666666;
+            --background-light: #fafafa;
+            --border-light: #e0e0e0;
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+            --border-radius: 15px;
+            --gradient-primary: linear-gradient(135deg, var(--primary-yellow) 0%, var(--dark-yellow) 100%);
+            --gradient-dark: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+        }
+
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            line-height: 1.6;
+            color: var(--text-black);
+            background: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Navigation */
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-dark);
+            color: var(--text-white);
+            padding: 150px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.1"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--primary-yellow) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            color: var(--primary-yellow);
+        }
+
+        /* Filters Section */
+        .filters {
+            padding: 60px 0;
+            background: var(--background-light);
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-gray);
+            border: 2px solid var(--border-light);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-yellow);
+            color: var(--text-black);
+            border-color: var(--primary-yellow);
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-yellow);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background: var(--dark-yellow);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* News Grid */
+        .news-grid {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-black);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            cursor: pointer;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .article-card.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 220px;
+            background: var(--primary-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 215, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .article-image i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .article-category {
+            background: var(--primary-yellow);
+            color: var(--text-black);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .article-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-black);
+            line-height: 1.4;
+        }
+
+        .article-excerpt {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .read-more {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--dark-yellow);
+            transform: translateX(5px);
+        }
+
+        .article-stats {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 2rem;
+        }
+
+        .featured-image {
+            background: var(--primary-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-black);
+            position: relative;
+            min-height: 100%;
+        }
+
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 215, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .featured-image i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .featured-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-badge {
+            background: var(--gradient-primary);
+            color: var(--text-black);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: fit-content;
+            margin-bottom: 1rem;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-black);
+            line-height: 1.3;
+        }
+
+        .featured-excerpt {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .pagination-btn {
+            background: white;
+            border: 2px solid var(--border-light);
+            color: var(--text-gray);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn.active {
+            background: var(--primary-yellow);
+            border-color: var(--primary-yellow);
+            color: var(--text-black);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--text-black);
+            color: var(--text-white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-yellow);
+        }
+
+        .newsletter p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-btn {
+            background: var(--primary-yellow);
+            color: var(--text-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--dark-yellow);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-black);
+            color: var(--text-white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo h3 {
+            color: var(--primary-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-yellow);
+            color: var(--text-black);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-light);
+            border-top: 4px solid var(--primary-yellow);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header {
+                margin: 0 40px;
+                width: calc(100% - 80px);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(15px);
+                width: calc(100% - 80px);
+                margin: 0 40px;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow-medium);
+                border-radius: 40px;
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-logo-mobile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 250px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                max-width: 300px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                margin: 0 20px;
+                width: calc(100% - 40px);
+            }
+
+            .nav-menu {
+                width: calc(100% - 40px);
+                margin: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-container {
+                flex-direction: column;
+            }
+
+            .featured-title {
+                font-size: 1.6rem;
+            }
+
+            .featured-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="header sticky-nav">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo desktop-logo">
+                    <img src="images/logo.png" alt="L.AC.S Logo">
+                    <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-logo-mobile">
+                        <div class="nav-logo">
+                            <img src="images/logo.png" alt="L.AC.S Logo">
+                            <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
+                        </div>
+                    </li>
+                    <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
+                    <li><a href="apropos.html" class="nav-link">À propos</a></li>
+                    <li><a href="actualites.html" class="nav-link active">Actualités</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="inscription-btn">Inscription</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Actualités du <span class="highlight">L.AC.S</span></h1>
+                <p>Restez informé des dernières nouvelles, événements et réussites de notre laboratoire d'excellence
+                    scientifique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters-container">
+                <button class="filter-btn active" data-category="all">Toutes</button>
+                <button class="filter-btn" data-category="pedagogie">Pédagogie</button>
+                <button class="filter-btn" data-category="resultats">Résultats</button>
+                <button class="filter-btn" data-category="evenements">Événements</button>
+                <button class="filter-btn" data-category="innovation">Innovation</button>
+                <button class="filter-btn" data-category="partenariats">Partenariats</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Rechercher un article..." id="searchInput">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Grid -->
+    <section class="news-grid">
+        <div class="container">
+            <h2 class="section-title">Nos Dernières Actualités</h2>
+
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Chargement des articles...</p>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Featured Article -->
+                <article class="featured-article" data-category="pedagogie">
+                    <div class="featured-image">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="featured-content">
+                        <div class="featured-badge">À la Une</div>
+                        <h2 class="featured-title">Nouveau programme de préparation au Bac 2025</h2>
+                        <div class="featured-meta">
+                            <span class="article-category">Pédagogie</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                15 Janvier 2025
+                            </span>
+                        </div>
+                        <p class="featured-excerpt">
+                            Découvrez notre programme innovant spécialement conçu pour la réforme du Baccalauréat 2025.
+                            Une approche personnalisée qui combine excellence académique et développement des
+                            compétences
+                            du 21ème siècle.
+                        </p>
+                        <a href="article-bac-2025.html" class="read-more">
+                            Lire l'article complet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Regular Articles -->
+                <article class="article-card" data-category="resultats">
+                    <div class="article-image">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Résultats</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                12 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Olympiades de Physique 2024 : Nos élèves brillent</h3>
+                        <p class="article-excerpt">
+                            Trois de nos élèves de Terminale ont remporté des médailles aux Olympiades Nationales de
+                            Physique.
+                            Une reconnaissance de l'excellence de notre formation scientifique.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('olympiades-physique')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    124
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    28
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="evenements">
+                    <div class="article-image">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Événements</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                10 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Ateliers scientifiques d'été 2025</h3>
+                        <p class="article-excerpt">
+                            Inscriptions ouvertes pour nos ateliers d'été ! Deux semaines d'immersion scientifique
+                            avec des expériences passionnantes et des projets innovants.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('ateliers-ete')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    89
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    15
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="innovation">
+                    <div class="article-image">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Innovation</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                8 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Nouveau laboratoire de réalité virtuelle</h3>
+                        <p class="article-excerpt">
+                            Inauguration de notre laboratoire VR dédié à l'enseignement des sciences.
+                            Une révolution pédagogique pour visualiser les concepts complexes.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('laboratoire-vr')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    156
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    42
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="partenariats">
+                    <div class="article-image">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Partenariats</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                5 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Partenariat avec l'Université de Sciences</h3>
+                        <p class="article-excerpt">
+                            Signature d'un accord de partenariat avec l'Université Locale pour faciliter
+                            l'orientation de nos élèves vers les filières scientifiques d'excellence.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('partenariat-universite')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    73
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    19
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="pedagogie">
+                    <div class="article-image">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Pédagogie</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                3 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Formation continue de nos enseignants</h3>
+                        <p class="article-excerpt">
+                            Nos professeurs suivent régulièrement des formations pour rester à la pointe
+                            des dernières méthodes pédagogiques et innovations technologiques.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('formation-enseignants')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    92
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    31
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="resultats">
+                    <div class="article-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Résultats</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                1 Janvier 2025
+                            </span>
+                        </div>
+                        <h3 class="article-title">Bilan 2024 : Une année d'excellence</h3>
+                        <p class="article-excerpt">
+                            Retour sur une année exceptionnelle avec un taux de réussite au baccalauréat de 98%
+                            et de nombreuses admissions dans les grandes écoles.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('bilan-2024')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    267
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    84
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-category="evenements">
+                    <div class="article-image">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">Événements</span>
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                28 Décembre 2024
+                            </span>
+                        </div>
+                        <h3 class="article-title">Concours de sciences expérimentales</h3>
+                        <p class="article-excerpt">
+                            Organisation du premier concours interne de sciences expérimentales.
+                            Une compétition stimulante pour développer l'esprit scientifique de nos élèves.
+                        </p>
+                        <div class="article-footer">
+                            <a href="#" class="read-more" onclick="redirectToArticle('concours-sciences')">
+                                Lire plus <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="article-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-eye"></i>
+                                    118
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    37
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn" id="prevPage">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn" id="nextPage">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Restez informé</h2>
+                <p>Abonnez-vous à notre newsletter pour recevoir toutes les actualités du L.AC.S directement dans votre
+                    boîte mail.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                    <button type="submit" class="newsletter-btn">S'abonner</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo-full.png" alt="">
+                </div>
+                <div class="footer-links">
+                    <a href="index.html#accueil">Accueil</a>
+                    <a href="apropos.html">À propos</a>
+                    <a href="actualites.html">Actualités</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 L.AC.S - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Article filtering and search functionality
+        class NewsManager {
+            constructor() {
+                this.articles = document.querySelectorAll('.article-card, .featured-article');
+                this.filterButtons = document.querySelectorAll('.filter-btn');
+                this.searchInput = document.getElementById('searchInput');
+                this.searchBtn = document.getElementById('searchBtn');
+                this.loading = document.getElementById('loading');
+                this.currentFilter = 'all';
+                this.currentSearch = '';
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+                this.initializeAnimations();
+            }
+
+            addEventListeners() {
+                // Filter buttons
+                this.filterButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.handleFilterClick(e.target);
+                    });
+                });
+
+                // Search functionality
+                this.searchInput.addEventListener('input', (e) => {
+                    this.handleSearch(e.target.value);
+                });
+
+                this.searchBtn.addEventListener('click', () => {
+                    this.handleSearch(this.searchInput.value);
+                });
+
+                // Enter key for search
+                this.searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.handleSearch(this.searchInput.value);
+                    }
+                });
+            }
+
+            handleFilterClick(button) {
+                // Update active button
+                this.filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Get filter category
+                this.currentFilter = button.getAttribute('data-category');
+
+                // Apply filter with animation
+                this.applyFilters();
+            }
+
+            handleSearch(searchTerm) {
+                this.currentSearch = searchTerm.toLowerCase().trim();
+                this.applyFilters();
+            }
+
+            applyFilters() {
+                // Show loading
+                this.showLoading();
+
+                setTimeout(() => {
+                    this.articles.forEach(article => {
+                        const category = article.getAttribute('data-category');
+                        const title = article.querySelector('.article-title, .featured-title')?.textContent.toLowerCase() || '';
+                        const excerpt = article.querySelector('.article-excerpt, .featured-excerpt')?.textContent.toLowerCase() || '';
+
+                        const matchesFilter = this.currentFilter === 'all' || category === this.currentFilter;
+                        const matchesSearch = this.currentSearch === '' ||
+                            title.includes(this.currentSearch) ||
+                            excerpt.includes(this.currentSearch);
+
+                        if (matchesFilter && matchesSearch) {
+                            article.classList.remove('hidden');
+                            article.style.animation = 'fadeInUp 0.6s ease forwards';
+                        } else {
+                            article.classList.add('hidden');
+                        }
+                    });
+
+                    this.hideLoading();
+                    this.updateResultsMessage();
+                }, 500);
+            }
+
+            showLoading() {
+                this.loading.classList.add('active');
+            }
+
+            hideLoading() {
+                this.loading.classList.remove('active');
+            }
+
+            updateResultsMessage() {
+                const visibleArticles = document.querySelectorAll('.article-card:not(.hidden), .featured-article:not(.hidden)');
+                const resultsCount = visibleArticles.length;
+
+                // You could add a results message here if needed
+                console.log(`${resultsCount} articles found`);
+            }
+
+            initializeAnimations() {
+                // Intersection Observer for scroll animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !entry.target.classList.contains('hidden')) {
+                            entry.target.classList.add('fade-in');
+                        }
+                    });
+                }, observerOptions);
+
+                this.articles.forEach(article => {
+                    observer.observe(article);
+                });
+            }
+        }
+
+        // Navigation functionality
+        class Navigation {
+            constructor() {
+                this.hamburger = document.querySelector('.hamburger');
+                this.navMenu = document.querySelector('.nav-menu');
+                this.navLinks = document.querySelectorAll('.nav-link');
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+            }
+
+            addEventListeners() {
+                // Hamburger menu toggle
+                this.hamburger.addEventListener('click', () => {
+                    this.toggleMobileMenu();
+                });
+
+                // Close mobile menu when clicking on links
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMobileMenu();
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!this.hamburger.contains(e.target) && !this.navMenu.contains(e.target)) {
+                        this.closeMobileMenu();
+                    }
+                });
+            }
+
+            toggleMobileMenu() {
+                this.hamburger.classList.toggle('active');
+                this.navMenu.classList.toggle('active');
+            }
+
+            closeMobileMenu() {
+                this.hamburger.classList.remove('active');
+                this.navMenu.classList.remove('active');
+            }
+        }
+
+        // Newsletter functionality
+        class Newsletter {
+            constructor() {
+                this.form = document.getElementById('newsletterForm');
+                this.init();
+            }
+
+            init() {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleSubmit();
+                });
+            }
+
+            handleSubmit() {
+                const email = this.form.querySelector('.newsletter-input').value;
+
+                // Simulate form submission
+                const button = this.form.querySelector('.newsletter-btn');
+                const originalText = button.textContent;
+
+                button.textContent = 'Inscription...';
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.textContent = 'Inscrit !';
+                    button.style.background = '#28a745';
+
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        button.style.background = '';
+                        this.form.reset();
+                    }, 2000);
+                }, 1000);
+            }
+        }
+
+        // Pagination functionality
+        class Pagination {
+            constructor() {
+                this.prevBtn = document.getElementById('prevPage');
+                this.nextBtn = document.getElementById('nextPage');
+                this.pageButtons = document.querySelectorAll('.pagination-btn:not(#prevPage):not(#nextPage)');
+                this.currentPage = 1;
+                this.totalPages = 3;
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+                this.updatePagination();
+            }
+
+            addEventListeners() {
+                this.prevBtn.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.updatePagination();
+                        this.scrollToTop();
+                    }
+                });
+
+                this.nextBtn.addEventListener('click', () => {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.updatePagination();
+                        this.scrollToTop();
+                    }
+                });
+
+                this.pageButtons.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        this.currentPage = index + 1;
+                        this.updatePagination();
+                        this.scrollToTop();
+                    });
+                });
+            }
+
+            updatePagination() {
+                // Update button states
+                this.prevBtn.disabled = this.currentPage === 1;
+                this.nextBtn.disabled = this.currentPage === this.totalPages;
+
+                // Update active page button
+                this.pageButtons.forEach((btn, index) => {
+                    btn.classList.toggle('active', index + 1 === this.currentPage);
+                });
+            }
+
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Utility functions
+        function redirectToArticle(articleSlug) {
+            // For now, redirect to the existing article page
+            // In a real application, you would redirect to dynamic article pages
+            if (articleSlug === 'olympiades-physique' || articleSlug === 'ateliers-ete' ||
+                articleSlug === 'laboratoire-vr' || articleSlug === 'partenariat-universite' ||
+                articleSlug === 'formation-enseignants' || articleSlug === 'bilan-2024' ||
+                articleSlug === 'concours-sciences') {
+
+                // Simulate article loading
+                const loading = document.createElement('div');
+                loading.innerHTML = `
+                    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                         background: rgba(0,0,0,0.8); display: flex; align-items: center; 
+                         justify-content: center; z-index: 9999; color: white;">
+                        <div style="text-align: center;">
+                            <div style="width: 40px; height: 40px; border: 4px solid #ddd; 
+                                 border-top: 4px solid #FFD700; border-radius: 50%; 
+                                 animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+                            <p>Chargement de l'article...</p>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(loading);
+
+                setTimeout(() => {
+                    document.body.removeChild(loading);
+                    alert(`Article "${articleSlug}" en cours de développement. Redirection vers la page d'exemple.`);
+                    window.location.href = 'article-bac-2025.html';
+                }, 1500);
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Header scroll effect
+        
+
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize classes
+            new NewsManager();
+            new Navigation();
+            new Newsletter();
+            new Pagination();
+
+            // Initialize utility functions
+            initSmoothScrolling();
+            initHeaderScroll();
+
+            console.log('Page Actualités L.AC.S chargée avec succès! 📰');
+        });
+
+        // Add some interactive hover effects
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add hover effects to article cards
+            const articleCards = document.querySelectorAll('.article-card');
+
+            articleCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click effect to filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+    <script src="header.js"></script>
+</body>
+
+</html>
