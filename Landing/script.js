@@ -317,6 +317,7 @@ const handleCTAButtons = () => {
     if (secondaryBtn) {
         secondaryBtn.addEventListener('click', () => {
             showNotification('Redirection vers le formulaire de devis...', 'success');
+            window.location.href = 'inscription.html';
         });
     }
 };
@@ -332,8 +333,8 @@ const handleNewsButtons = () => {
             // URLs des articles
             const articleUrls = {
                 'presco-2025-2026': 'activites-prescolaires.html',
-                'invitation-bourse': 'bourse.html', // À créer plus tard
-                'ateliers-ete': '#' // À créer plus tard
+                'invitation-bourse': 'bourse.html',
+                'bac-2025': 'article-bac-2025.html'
             };
 
             if (articleUrls[articleId] && articleUrls[articleId] !== '#') {
