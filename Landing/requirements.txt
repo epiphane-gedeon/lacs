@@ -1,0 +1,9 @@
+Flask
+Flask-Bcrypt
+Flask-Login
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-WTF
+migrate
+python-slugify
+WTForms

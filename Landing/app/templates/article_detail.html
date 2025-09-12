@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style/article.css') }}">
+{% extends "base.html" %}
+{% block content %}
+   <section class="article-header">
+        <div class="container">
+            <!-- <div class="breadcrumb">
+                <a href="{{ url_for('home') }}">Accueil</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="{{ url_for('actualites') }}">Actualités</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>{{ article.titre }}</span>
+            </div> -->
+
+            <h1 class="article-title">{{ article.titre }}</h1>
+            <p class="article-subtitle">{{ article.titre}}</p>
+
+            <div class="image-frame">
+                <img src="images/Article.jpg"
+                    alt="Programme Bac 2025">
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-main">
+        <div class="container">
+            <div class="article-layout">
+                <!-- Article Content -->
+                <div class="article-content">
+                    <!-- Article Meta -->
+                    <div class="article-meta-info">
+                        <div class="author-info">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="author-details">
+                                <span class="author-name">{{article.auteur_id}}</span>
+                                <span class="publish-date">{{article.created_at|date_fr}}</span>
+                            </div>
+                        </div>
+                        <div class="article-stats">
+                            <span class="read-time">
+                                <i class="fas fa-clock"></i>
+                                5 min de lecture
+                            </span>
+                            <span class="category-tag">{{ article.categorie.nom }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Article Text -->
+                    <div class="article-text">
+                        {{article.contenu|safe}}
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="article-sidebar">
+                    <div class="sidebar-widget">
+                        <h3>Articles récents</h3>
+                        <div class="recent-posts">
+                            {%for article in articles%}
+                                <a href="{{ url_for('article_detail', slug=article.slug) }}" style="text-decoration: none;">
+                                    <article class="recent-post">
+                                        <div class="post-image">
+                                            <img src="images/art-bourse.jpg"
+                                                alt="activités préscolaires l.a.c.s">
+                                        </div>
+                                        <div class="post-content">
+                                            <h4>{{article.titre}}</h4>
+                                            <span class="post-date">{{article.created_at|date_fr}}</span>
+                                        </div>
+                                    </article>
+                                </a>
+                            {%endfor%}
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Catégories</h3>
+                        <div class="categories-list">
+                            {% for categorie in categories %}
+                            <a href="#" class="category-link">
+                                <span>{{ categorie.nom }}</span>
+                                <span class="post-count">{{ categorie.articles|length }}</span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </article>
+{% endblock %}

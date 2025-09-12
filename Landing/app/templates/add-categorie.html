@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="form-container">
+        <h2 class="text-2xl font-bold mb-6 text-center">Ajouter une nouvelle catégorie</h2>
+        
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="mb-4">
+                <label for="nom" class="block font-semibold mb-2">Nom de la catégorie</label>
+                {{ form.nom(class="border border-gray-300 rounded p-2 w-full", id="nom") }}
+                {% if form.nom.errors %}
+                    <div class="text-red-500 mt-1">
+                        {% for error in form.nom.errors %}
+                            <span class="text-sm">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="description" class="block font-semibold mb-2">Description</label>
+                {{ form.description(class="border border-gray-300 rounded p-2 w-full h-24", id="description", placeholder="Description optionnelle de la catégorie...") }}
+                {% if form.description.errors %}
+                    <div class="text-red-500 mt-1">
+                        {% for error in form.description.errors %}
+                            <span class="text-sm">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 mr-2">
+                    Créer la catégorie
+                </button>
+                <a href="{{ url_for('home') }}" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600">
+                    Annuler
+                </a>
+            </div>
+        </form>
+
+        <!-- Liste des catégories existantes -->
+        <div class="mt-8">
+            <h3 class="text-xl font-semibold mb-4">Catégories existantes</h3>
+            {% if categories %}
+                <div class="grid gap-3">
+                    {% for categorie in categories %}
+                        <div class="border border-gray-200 rounded p-3 bg-gray-50">
+                            <h4 class="font-semibold">{{ categorie.nom }}</h4>
+                            {% if categorie.description %}
+                                <p class="text-gray-600 text-sm mt-1">{{ categorie.description }}</p>
+                            {% endif %}
+                            <p class="text-xs text-gray-500 mt-2">
+                                Créée le {{ categorie.created_at|date_fr }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500">Aucune catégorie créée pour le moment.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+        
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+        
+        .mt-8 {
+            margin-top: 2rem;
+        }
+        
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+        
+        .block {
+            display: block;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .gap-3 {
+            gap: 0.75rem;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+        }
+        
+        .font-semibold {
+            font-weight: 600;
+        }
+        
+        .border {
+            border-width: 1px;
+            border-style: solid;
+            border-color: #146C53;
+        }
+        
+        .border-gray-200 {
+            border-color: #e5e7eb;
+        }
+        
+        .border-gray-300 {
+            border-color: #d1d5db;
+        }
+        
+        .rounded {
+            border-radius: 0.375rem;
+        }
+        
+        .p-2 {
+            padding: 0.5rem;
+        }
+        
+        .p-3 {
+            padding: 0.75rem;
+        }
+        
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .h-24 {
+            height: 6rem;
+        }
+        
+        .bg-green-600 {
+            background-color: #16a34a;
+        }
+        
+        .bg-green-600:hover, .hover\\:bg-green-700:hover {
+            background-color: #15803d;
+        }
+        
+        .bg-gray-500 {
+            background-color: #6b7280;
+        }
+        
+        .bg-gray-500:hover, .hover\\:bg-gray-600:hover {
+            background-color: #4b5563;
+        }
+        
+        .bg-gray-50 {
+            background-color: #f9fafb;
+        }
+        
+        .text-white {
+            color: #fff;
+        }
+        
+        .text-red-500 {
+            color: #ef4444;
+        }
+        
+        .text-gray-500 {
+            color: #6b7280;
+        }
+        
+        .text-gray-600 {
+            color: #4b5563;
+        }
+        
+        button, a {
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+    </style>
+{% endblock %}
