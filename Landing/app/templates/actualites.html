@@ -69,7 +69,7 @@
                 {% elif categorie_actuelle and categorie_actuelle != 'all' %}
                     Articles dans "{{ categorie_actuelle }}" ({{ articles.total }} article{{ 's' if articles.total > 1 else '' }})
                 {% else %}
-                    Nos Dernières Actualités ({{ articles.total }} article{{ 's' if articles.total > 1 else '' }})
+                    Nos Dernières Actualités
                 {% endif %}
             </h2>
 
@@ -80,31 +80,31 @@
 
             <div class="articles-grid" id="articlesGrid">
                 <!-- Featured Article -->
+                 {% if dernier_article %}
                 <article class="featured-article" data-category="pedagogie">
                     <div class="featured-image">
-                        <i class="fas fa-graduation-cap"></i>
+                        <!--i class="fas fa-graduation-cap"></i-->
+                        <img src="{{url_for('static', filename=dernier_article.image_path)}}" alt="{{dernier_article.titre}}">
                     </div>
                     <div class="featured-content">
                         <div class="featured-badge">À la Une</div>
-                        <h2 class="featured-title">Nouveau programme de préparation au Bac 2025</h2>
+                        <h2 class="featured-title">{{ dernier_article.titre }}</h2>
                         <div class="featured-meta">
-                            <span class="article-category">Pédagogie</span>
+                            <span class="article-category">{{ dernier_article.categorie.nom }}</span>
                             <span class="article-date">
                                 <i class="fas fa-calendar"></i>
-                                15 Janvier 2025
+                                {{ dernier_article.created_at|date_fr }}
                             </span>
                         </div>
                         <p class="featured-excerpt">
-                            Découvrez notre programme innovant spécialement conçu pour la réforme du Baccalauréat 2025.
-                            Une approche personnalisée qui combine excellence académique et développement des
-                            compétences
-                            du 21ème siècle.
+                            {{ dernier_article.contenu[:180]|safe }}...
                         </p>
-                        <a href="article-bac-2025.html" class="read-more">
+                        <a href="{{ url_for('article_detail', slug=dernier_article.slug) }}" class="read-more">
                             Lire l'article complet <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
+                {% endif%}
 
                 <!-- Regular Articles -->
                 {% if articles.items %}
@@ -112,7 +112,7 @@
                     <article class="article-card" data-category="{{article.categorie.nom|lower}}">
                         <div class="article-image">
                             <!--<i class="fas fa-trophy"></i>-->
-                            <img src="{{url_for('static', filename='images/Article.jpg')}}" alt="{{article.titre}}">
+                            <img src="{{url_for('static', filename=article.image_path)}}" alt="{{article.titre}}">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -131,11 +131,11 @@
                                     Lire plus <i class="fas fa-arrow-right"></i>
                                 </a>
                                 <div class="article-stats">
-                                    <span class="stat-item">
+                                    <span class="article-stat-item">
                                         <i class="fas fa-eye"></i>
                                         124
                                     </span>
-                                    <span class="stat-item">
+                                    <span class="article-stat-item">
                                         <i class="fas fa-heart"></i>
                                         28
                                     </span>
@@ -274,6 +274,10 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            background-image: url('{{ url_for('static', filename='images/actu.jpeg') }}');
+            background-size: cover;
+            background-position: center 40%; /* Position l'image pour montrer le centre où travaillent les étudiants */
+            background-repeat: no-repeat;
         }
 
         .hero::before {
@@ -283,8 +287,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FFD700" fill-opacity="0.1"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
-            animation: float 20s linear infinite;
+            background: rgba(255, 255, 255, 0.2);
             pointer-events: none;
         }
 
@@ -297,19 +300,16 @@
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-white) 0%, var(--primary-yellow) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-yellow);
         }
 
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            color: var(--text-white);
         }
 
         .highlight {
@@ -570,7 +570,7 @@
             font-size: 0.9rem;
         }
 
-        .stat-item {
+        .article-stat-item {
             display: flex;
             align-items: center;
             gap: 0.3rem;
@@ -664,9 +664,10 @@
             pointer-events: none;
         }
 
-        .featured-image i {
+        .featured-image img {
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         .featured-content {
@@ -1067,4 +1068,5 @@
             }
         }
     </style>
+    <script src="{{ url_for('static', filename='script/header.js') }}"></script>
 {% endblock %}

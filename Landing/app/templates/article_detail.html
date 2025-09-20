@@ -15,8 +15,7 @@
             <p class="article-subtitle">{{ article.titre}}</p>
 
             <div class="image-frame">
-                <img src="images/Article.jpg"
-                    alt="Programme Bac 2025">
+                <img src="{{url_for('static', filename=article.image_path)}}" alt="{{article.titre}}">
             </div>
         </div>
     </section>
@@ -34,7 +33,7 @@
                                 <i class="fas fa-user-tie"></i>
                             </div>
                             <div class="author-details">
-                                <span class="author-name">{{article.auteur_id}}</span>
+                                <span class="author-name">{{auteur.nom}}</span>
                                 <span class="publish-date">{{article.created_at|date_fr}}</span>
                             </div>
                         </div>
@@ -62,8 +61,7 @@
                                 <a href="{{ url_for('article_detail', slug=article.slug) }}" style="text-decoration: none;">
                                     <article class="recent-post">
                                         <div class="post-image">
-                                            <img src="images/art-bourse.jpg"
-                                                alt="activités préscolaires l.a.c.s">
+                                            <img src="{{url_for('static', filename=article.image_path)}}" alt="{{article.titre}}">
                                         </div>
                                         <div class="post-content">
                                             <h4>{{article.titre}}</h4>
@@ -90,4 +88,5 @@
             </div>
         </div>
     </article>
+    <script src="{{ url_for('static', filename='script/header.js') }}"></script>
 {% endblock %}

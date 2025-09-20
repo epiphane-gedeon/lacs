@@ -209,21 +209,21 @@ class InscriptionForm {
         });
 
         // Subject selection for price calculation
-        document.querySelectorAll('input[name="subjects"]').forEach(checkbox => {
-            checkbox.addEventListener('change', () => this.updatePriceSummary());
-        });
+        // document.querySelectorAll('input[name="subjects"]').forEach(checkbox => {
+        //     checkbox.addEventListener('change', () => this.updatePriceSummary());
+        // });
 
-        // Payment method selection
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', () => {
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                method.classList.add('selected');
-                this.clearError(document.getElementById('paymentError'));
-            });
-        });
+        // // Payment method selection
+        // document.querySelectorAll('.payment-method').forEach(method => {
+        //     method.addEventListener('click', () => {
+        //         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+        //         method.classList.add('selected');
+        //         this.clearError(document.getElementById('paymentError'));
+        //     });
+        // });
 
         // File upload handling
-        document.getElementById('documents').addEventListener('change', (e) => {
+        document.getElementById('bulletin').addEventListener('change', (e) => {
             const files = e.target.files;
             const fileName = document.getElementById('fileName');
             if (files.length > 0) {
@@ -231,6 +231,64 @@ class InscriptionForm {
                 fileName.style.display = 'block';
             }
         });
+
+        // Gestion dynamique du champ série selon le niveau d'étude
+        const niveauEtudeSelect = document.getElementById('niveau_etude');
+        const seriesContainer = document.querySelector('input[name="series"]').closest('.form-group');
+        const seriesInputs = document.querySelectorAll('input[name="series"]');
+
+        if (niveauEtudeSelect && seriesContainer) {
+            // Fonction pour mettre à jour la visibilité et l'obligation de la série
+            const updateSeriesRequirement = () => {
+                const niveau = niveauEtudeSelect.value;
+                const isPremiereOrTerminale = niveau === 'premiere' || niveau === 'terminale';
+
+                if (isPremiereOrTerminale) {
+                    // Afficher la série
+                    seriesContainer.style.display = 'block';
+
+                    // Décocher l'option vide cachée pour forcer une sélection
+                    const emptyOption = document.querySelector('input[name="series"][value=""]');
+                    if (emptyOption) {
+                        emptyOption.checked = false;
+                    }
+
+                    // Mettre à jour le label pour indiquer que c'est obligatoire
+                    const label = seriesContainer.querySelector('label');
+                    if (label && !label.querySelector('.required')) {
+                        label.innerHTML += ' <span class="required">*</span>';
+                    }
+                } else {
+                    // Cacher la série
+                    seriesContainer.style.display = 'none';
+                    seriesInputs.forEach(input => {
+                        input.checked = false; // Décocher toutes les séries
+                    });
+
+                    // Recocher l'option vide pour les autres niveaux
+                    const emptyOption = document.querySelector('input[name="series"][value=""]');
+                    if (emptyOption) {
+                        emptyOption.checked = true;
+                    }
+
+                    // Retirer l'astérisque obligatoire du label
+                    const label = seriesContainer.querySelector('label');
+                    const requiredSpan = label?.querySelector('.required');
+                    if (requiredSpan) {
+                        requiredSpan.remove();
+                    }
+
+                    // Effacer les erreurs de validation sur les séries
+                    this.clearError(document.getElementById('seriesError') || 'seriesError');
+                }
+            };
+
+            // Appliquer au chargement de la page
+            updateSeriesRequirement();
+
+            // Écouter les changements de niveau d'étude
+            niveauEtudeSelect.addEventListener('change', updateSeriesRequirement);
+        }
 
         // Terms checkbox
         document.getElementById('terms').addEventListener('change', (e) => {
@@ -250,9 +308,8 @@ class InscriptionForm {
                 if (this.currentStep === 4) {
                     this.populateSummary();
                 }
-            } else {
-                this.submitForm();
             }
+            // Ne plus appeler submitForm() ici, le bouton submit s'en chargera
         }
     }
 
@@ -276,14 +333,19 @@ class InscriptionForm {
         // Update navigation buttons
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const submitButton = document.getElementById('submitButton');
         const btnText = nextBtn.querySelector('.btn-text');
 
         prevBtn.style.display = step > 1 ? 'flex' : 'none';
 
         if (step === this.totalSteps) {
-            btnText.textContent = 'Confirmer l\'inscription';
-            nextBtn.querySelector('i').className = 'fas fa-check';
+            // À la dernière étape, cacher le bouton Next et afficher le bouton Submit Flask
+            nextBtn.style.display = 'none';
+            submitButton.style.display = 'block';
         } else {
+            // Aux autres étapes, afficher le bouton Next et cacher le bouton Submit
+            nextBtn.style.display = 'flex';
+            submitButton.style.display = 'none';
             btnText.textContent = 'Suivant';
             nextBtn.querySelector('i').className = 'fas fa-arrow-right';
         }
@@ -336,27 +398,70 @@ class InscriptionForm {
     validateCurrentStep() {
         let isValid = true;
         const currentStepElement = document.getElementById(`step${this.currentStep}`);
-        const requiredFields = currentStepElement.querySelectorAll('[required]');
+
+        // Valider uniquement les champs avec required qui sont visibles et pertinents
+        const requiredFields = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
 
         requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
+            // Ignorer les champs cachés ou dans des conteneurs cachés
+            const fieldContainer = field.closest('.form-group');
+            const isVisible = fieldContainer && window.getComputedStyle(fieldContainer).display !== 'none';
+
+            // Ignorer aussi les radio buttons non cochés sauf s'il n'y en a aucun de coché
+            if (field.type === 'radio') {
+                const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
+                const hasChecked = Array.from(radioGroup).some(radio => radio.checked);
+
+                // Pour les radios, on valide seulement s'il n'y en a aucun de coché
+                if (!hasChecked && isVisible) {
+                    if (!this.validateField(field)) {
+                        isValid = false;
+                    }
+                }
+            } else if (isVisible) {
+                // Pour les autres types de champs
+                if (!this.validateField(field)) {
+                    isValid = false;
+                }
             }
         });
 
         // Special validations
-        if (this.currentStep === 3) {
-            // Check if at least one subject is selected
-            const selectedSubjects = document.querySelectorAll('input[name="subjects"]:checked');
-            if (selectedSubjects.length === 0) {
-                this.showError('subjectsError', 'Veuillez sélectionner au moins une matière');
-                isValid = false;
-            }
+        if (this.currentStep === 2) {
+            // Validation spéciale pour la série si Première ou Terminale est sélectionné
+            const niveauEtude = document.getElementById('niveau_etude').value;
+            console.log('Niveau d\'étude:', niveauEtude);
 
-            // Check if program is selected
-            const selectedProgram = document.querySelector('input[name="program"]:checked');
-            if (!selectedProgram) {
-                this.showError('programError', 'Veuillez sélectionner un programme');
+            if (niveauEtude === 'premiere' || niveauEtude === 'terminale') {
+                // Chercher une série sélectionnée qui n'est pas l'option vide cachée
+                const selectedSeries = document.querySelector('input[name="series"]:checked:not([value=""])');
+                const allSelectedSeries = document.querySelectorAll('input[name="series"]:checked');
+
+                console.log('Toutes les séries cochées:', allSelectedSeries);
+                console.log('Série sélectionnée (non vide):', selectedSeries);
+
+                if (!selectedSeries) {
+                    this.showError('seriesError', 'Veuillez sélectionner une série pour la Première/Terminale');
+                    isValid = false;
+                } else {
+                    // Effacer l'erreur si une série valide est sélectionnée
+                    this.clearError(document.getElementById('seriesError'));
+                }
+            }
+        }
+
+        if (this.currentStep === 3) {
+            // Check if at least one service is selected
+            // const selectedServices = document.querySelectorAll('input[name="services"]:checked');
+            // if (selectedServices.length === 0) {
+            //     this.showError('servicesError', 'Veuillez sélectionner au moins un service');
+            //     isValid = false;
+            // }
+
+            // Check if programme is selected
+            const selectedProgramme = document.querySelector('input[name="programme"]:checked');
+            if (!selectedProgramme) {
+                this.showError('programmeError', 'Veuillez sélectionner un programme');
                 isValid = false;
             }
         }
@@ -387,7 +492,7 @@ class InscriptionForm {
         let errorMessage = '';
 
         // Required field validation
-        if (field.hasAttribute('required_on') && !value) {
+        if (field.hasAttribute('required') && !value) {
             errorMessage = 'Ce champ est obligatoire';
             isValid = false;
         }
@@ -460,45 +565,53 @@ class InscriptionForm {
     populateSummary() {
         // Personal info summary
         document.getElementById('summaryName').textContent =
-            `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+            `${document.getElementById('prenom').value} ${document.getElementById('nom').value}`;
         document.getElementById('summaryEmail').textContent =
             document.getElementById('email').value;
         document.getElementById('summaryPhone').textContent =
-            document.getElementById('phone').value;
+            document.getElementById('telephone').value;
         document.getElementById('summaryParent').textContent =
-            document.getElementById('parentName').value;
+            document.getElementById('nom_parent').value;
 
         // Academic info summary
-        const levelSelect = document.getElementById('currentLevel');
+        const levelSelect = document.getElementById('niveau_etude');
         document.getElementById('summaryLevel').textContent =
             levelSelect.options[levelSelect.selectedIndex].text;
         document.getElementById('summarySchool').textContent =
-            document.getElementById('currentSchool').value;
+            document.getElementById('etablissement_actuel').value;
 
-        const mathSelect = document.getElementById('mathLevel');
-        document.getElementById('summaryMathLevel').textContent =
-            mathSelect.options[mathSelect.selectedIndex].text;
+        const mathSelect = document.getElementById('niveau_maths');
+        let mathText = mathSelect.options[mathSelect.selectedIndex].text;
+        mathText = mathText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summaryMathLevel').textContent = mathText;
 
-        const scienceSelect = document.getElementById('scienceLevel');
-        document.getElementById('summaryScienceLevel').textContent =
-            scienceSelect.options[scienceSelect.selectedIndex].text;
+        const scpSelect = document.getElementById('niveau_sp');
+        let spText = scpSelect.options[scpSelect.selectedIndex].text;
+        spText = spText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySPLevel').textContent = spText;
+
+        const svtSelect = document.getElementById('niveau_svt');
+        let svtText = svtSelect.options[svtSelect.selectedIndex].text;
+        svtText = svtText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySVTLevel').textContent = svtText;
 
         // Course info summary
-        const selectedProgram = document.querySelector('input[name="program"]:checked');
+        const selectedProgram = document.querySelector('input[name="programme"]:checked');
         document.getElementById('summaryProgram').textContent =
             selectedProgram ? selectedProgram.nextElementSibling.querySelector('strong').textContent : '-';
 
-        const selectedSubjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked'))
+        const selectedSubjects = Array.from(document.querySelectorAll('input[name="services"]:checked'))
             .map(cb => cb.value).join(', ');
         document.getElementById('summarySubjects').textContent = selectedSubjects || '-';
 
-        const startSelect = document.getElementById('startDate');
-        document.getElementById('summaryStartDate').textContent =
-            startSelect.options[startSelect.selectedIndex].text;
+        // const startSelect = document.getElementById('startDate');
+        // document.getElementById('summaryStartDate').textContent =
+        //     startSelect.options[startSelect.selectedIndex].text;
 
-        const scheduleSelect = document.getElementById('schedule');
-        document.getElementById('summarySchedule').textContent =
-            scheduleSelect.options[scheduleSelect.selectedIndex].text;
+        const scheduleSelect = document.getElementById('creneau');
+        let creneauText = scheduleSelect.options[scheduleSelect.selectedIndex].text;
+        creneauText = creneauText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySchedule').textContent = creneauText;
 
         // Price summary
         const selectedSubjectElements = document.querySelectorAll('input[name="subjects"]:checked');
@@ -511,41 +624,7 @@ class InscriptionForm {
         document.getElementById('summaryTotalPrice').textContent = `${monthlyTotal + this.prices.inscription}€`;
     }
 
-    async submitForm() {
-        const nextBtn = document.getElementById('nextBtn');
-        const spinner = nextBtn.querySelector('.loading-spinner');
-        const btnText = nextBtn.querySelector('.btn-text');
-
-        // Show loading state
-        nextBtn.classList.add('loading');
-        nextBtn.disabled = true;
-        btnText.textContent = 'Traitement en cours...';
-
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // Generate reference number
-            const referenceNumber = `LACS-2025-${String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0')}`;
-            document.getElementById('referenceNumber').textContent = referenceNumber;
-
-            // Show success step
-            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
-            document.getElementById('stepSuccess').classList.add('active');
-            document.getElementById('navigationButtons').style.display = 'none';
-
-            // Send confirmation email (simulation)
-            this.sendConfirmationEmail();
-
-        } catch (error) {
-            console.error('Erreur lors de la soumission:', error);
-            this.showMessage('step4Message', 'Une erreur est survenue. Veuillez réessayer.', 'error');
-        } finally {
-            nextBtn.classList.remove('loading');
-            nextBtn.disabled = false;
-            btnText.textContent = 'Confirmer l\'inscription';
-        }
-    }
+    // Fonction submitForm supprimée - la soumission se fait naturellement avec le bouton submit
 
     sendConfirmationEmail() {
         // Simulation of email sending

@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
+{%extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - L.AC.S | Laboratoire d'ACélération Scientifique</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="icon" href="images/logo-full.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-
+{% block content %}
     <style>
         /* CSS Variables */
         :root {
@@ -135,7 +125,6 @@
         .progress-steps {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             position: relative;
             margin-bottom: 1rem;
         }
@@ -532,6 +521,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .summary-card {
@@ -896,10 +886,7 @@
                 text-align: center;
             }
 
-            .progress-steps {
-                flex-direction: column;
-                gap: 1rem;
-            }
+            
 
             .progress-line,
             .progress-line-active {
@@ -940,8 +927,7 @@
             }
 
             .step-label {
-                font-size: 0.8rem;
-                max-width: 80px;
+                display : none;
             }
 
             .registration-container {
@@ -957,42 +943,8 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <!-- Header Navigation -->
-    <header class="header sticky-nav">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo desktop-logo">
-                    <img src="images/logo.png" alt="L.AC.S Logo">
-                    <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                </div>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-logo-mobile">
-                        <div class="nav-logo">
-                            <img src="images/logo.png" alt="L.AC.S Logo">
-                            <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                        </div>
-                    </li>
-                    <li><a href="index.html#accueil" class="nav-link active">Accueil</a></li>
-                    <li><a href="apropos.html" class="nav-link">À propos</a></li>
-                    <li><a href="actualites.html" class="nav-link">Actualités</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <button class="inscription-btn" style="background: white; color: var(--primary-yellow);">En cours
-                    d'inscription</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
+     <!-- Hero Section -->
+     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>Inscription au <span class="highlight">L.AC.S</span></h1>
@@ -1034,7 +986,18 @@
 
                 <!-- Form Container -->
                 <div class="form-container">
-                    <form id="registrationForm" novalidate>
+                    <form method="POST" action="{{ url_for('inscription') }}" id="registrationForm" enctype="multipart/form-data" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="message {{ category }} show">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <!-- Step 1: Personal Information -->
                         <div class="form-step active" id="step1">
                             <h2 class="step-title">Informations Personnelles</h2>
@@ -1045,69 +1008,77 @@
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="firstName" class="form-label">Prénom <span
-                                            class="required">*</span></label>
-                                    <input type="text" id="firstName" name="firstName" class="form-input" required>
-                                    <div class="error-text" id="firstNameError"></div>
+                                    <label for="{{ form.nom.id }}" class="form-label">
+                                        {{ form.nom.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.nom}}
+                                    <div class="error-text" id="nomError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName" class="form-label">Nom <span class="required">*</span></label>
-                                    <input type="text" id="lastName" name="lastName" class="form-input" required>
-                                    <div class="error-text" id="lastNameError"></div>
+                                    <label for="{{ form.prenom.id }}" class="form-label">
+                                        {{ form.prenom.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.prenom}}
+                                    <div class="error-text" id="prenomError"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="email" class="form-label">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" class="form-input" required>
+                                    <label for="{{ form.email.id }}" class="form-label">
+                                        {{ form.email.label.text }}
+                                    </label>
+                                    {{form.email}}
                                     <div class="error-text" id="emailError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone" class="form-label">Téléphone <span
-                                            class="required">*</span></label>
-                                    <input type="tel" id="phone" name="phone" class="form-input" required>
-                                    <div class="error-text" id="phoneError"></div>
+                                    <label for="{{ form.telephone.id }}" class="form-label">
+                                        {{ form.telephone.label.text }} <!--span class="required">*</span-->
+                                    </label>
+                                    {{form.telephone}}
+                                    <div class="error-text" id="telephoneError"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="birthDate" class="form-label">Date de naissance <span
-                                            class="required">*</span></label>
-                                    <input type="date" id="birthDate" name="birthDate" class="form-input" required>
-                                    <div class="error-text" id="birthDateError"></div>
+                                    <label for="{{ form.date_naissance.id }}" class="form-label">
+                                        {{ form.date_naissance.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.date_naissance}}
+                                    <div class="error-text" id="date_naissanceError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="gender" class="form-label">Genre</label>
-                                    <select id="gender" name="gender" class="form-input form-select">
-                                        <option value="">Choisir</option>
-                                        <option value="M">Masculin</option>
-                                        <option value="F">Féminin</option>
-                                    </select>
+                                    <label for="{{ form.genre.id }}" class="form-label">
+                                        {{ form.genre.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.genre}}
+                                    <div class="error-text" id="genreError"></div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="address" class="form-label">Adresse complète <span
-                                        class="required">*</span></label>
-                                <textarea id="address" name="address" class="form-input form-textarea" rows="3"
-                                    placeholder="Numéro, rue, ville, code postal..." required></textarea>
-                                <div class="error-text" id="addressError"></div>
+                                <label for="{{ form.adresse.id }}" class="form-label">
+                                    {{ form.adresse.label.text }} <span class="required">*</span>
+                                </label>
+                                {{form.adresse}}
+                                <div class="error-text" id="adresseError"></div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="parentName" class="form-label">Nom du responsable légal <span
-                                            class="required">*</span></label>
-                                    <input type="text" id="parentName" name="parentName" class="form-input" required>
-                                    <div class="error-text" id="parentNameError"></div>
+                                    <label for="{{ form.nom_parent.id }}" class="form-label">
+                                        {{ form.nom_parent.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.nom_parent}}
+                                    <div class="error-text" id="nom_parentError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="parentPhone" class="form-label">Téléphone du responsable <span
-                                            class="required">*</span></label>
-                                    <input type="tel" id="parentPhone" name="parentPhone" class="form-input" required>
-                                    <div class="error-text" id="parentPhoneError"></div>
+                                    <label for="{{ form.telephone_parent.id }}" class="form-label">
+                                        {{ form.telephone_parent.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.telephone_parent}}
+                                    <div class="error-text" id="telephone_parentError"></div>
                                 </div>
                             </div>
                         </div>
@@ -1122,99 +1093,89 @@
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="currentLevel" class="form-label">Niveau actuel <span
-                                            class="required">*</span></label>
-                                    <select id="currentLevel" name="currentLevel" class="form-input form-select"
-                                        required>
-                                        <option value="">Choisir votre niveau</option>
-                                        <option value="4eme">4ème</option>
-                                        <option value="3eme">3ème</option>
-                                        <option value="seconde">Seconde</option>
-                                        <option value="premiere">Première</option>
-                                        <option value="terminale">Terminale</option>
-                                    </select>
-                                    <div class="error-text" id="currentLevelError"></div>
+                                    <label for="{{ form.niveau_etude.id }}" class="form-label">
+                                        {{ form.niveau_etude.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.niveau_etude}}
+                                    <div class="error-text" id="niveau_etudeError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="currentSchool" class="form-label">Établissement actuel <span
-                                            class="required">*</span></label>
-                                    <input type="text" id="currentSchool" name="currentSchool" class="form-input"
-                                        required>
-                                    <div class="error-text" id="currentSchoolError"></div>
+                                    <label for="{{ form.etablissement_actuel.id }}" class="form-label">
+                                        {{ form.etablissement_actuel.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.etablissement_actuel}}
+                                    <div class="error-text" id="etablissement_actuelError"></div>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label class="form-label">Spécialités actuelles (pour Première/Terminale)</label>
-                                <div class="checkbox-group">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="math" name="specialties" value="Mathématiques">
-                                        <label for="math">Mathématiques</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="physics" name="specialties" value="Physique-Chimie">
-                                        <label for="physics">Physique-Chimie</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="svt" name="specialties" value="SVT">
-                                        <label for="svt">Sciences de la Vie et de la Terre</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="nsi" name="specialties" value="NSI">
-                                        <label for="nsi">Numérique et Sciences Informatiques</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="si" name="specialties" value="Sciences Ingénieur">
-                                        <label for="si">Sciences de l'Ingénieur</label>
-                                    </div>
+                                <label class="form-label">{{ form.series.label.text }}</label>
+                                <div class="radio-group">
+                                    {% for subfield in form.series %}
+                                        {% if subfield.data == '' %}
+                                            <!-- Option cachée mais sélectionnée par défaut -->
+                                            <div class="radio-item" style="display: none;">
+                                                {{ subfield(required=false, checked=true) }}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Non applicable</strong>
+                                                </label>
+                                            </div>
+                                        {% else %}
+                                            <div class="radio-item">
+                                                {{ subfield(required=false) }}
+                                                {% if subfield.data == 'c' %}
+                                                    <label for="{{ subfield.id }}">
+                                                        <strong>C</strong>
+                                                    </label>
+                                                {% elif subfield.data == 'd' %}
+                                                    <label for="{{ subfield.id }}">
+                                                        <strong>D</strong><br>
+                                                    </label>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="mathLevel" class="form-label">Niveau en Mathématiques <span
-                                            class="required">*</span></label>
-                                    <select id="mathLevel" name="mathLevel" class="form-input form-select" required>
-                                        <option value="">Évaluer votre niveau</option>
-                                        <option value="excellent">Excellent (16-20/20)</option>
-                                        <option value="bon">Bon (14-16/20)</option>
-                                        <option value="moyen">Moyen (12-14/20)</option>
-                                        <option value="faible">Faible (10-12/20)</option>
-                                        <option value="difficile">Difficultés (< 10/20)</option>
-                                    </select>
-                                    <div class="error-text" id="mathLevelError"></div>
+                                    <label for="{{ form.niveau_maths.id }}" class="form-label">
+                                        {{ form.niveau_maths.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.niveau_maths}}
+                                    <div class="error-text" id="niveau_mathsError"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="scienceLevel" class="form-label">Niveau en Sciences <span
-                                            class="required">*</span></label>
-                                    <select id="scienceLevel" name="scienceLevel" class="form-input form-select"
-                                        required>
-                                        <option value="">Évaluer votre niveau</option>
-                                        <option value="excellent">Excellent (16-20/20)</option>
-                                        <option value="bon">Bon (14-16/20)</option>
-                                        <option value="moyen">Moyen (12-14/20)</option>
-                                        <option value="faible">Faible (10-12/20)</option>
-                                        <option value="difficile">Difficultés (< 10/20)</option>
-                                    </select>
-                                    <div class="error-text" id="scienceLevelError"></div>
+                                    <label for="{{ form.niveau_sp.id }}" class="form-label">
+                                        {{ form.niveau_sp.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.niveau_sp}}
+                                    <div class="error-text" id="niveau_spError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.niveau_svt.id }}" class="form-label">
+                                        {{ form.niveau_svt.label.text }} <span class="required">*</span>
+                                    </label>
+                                    {{form.niveau_svt}}
+                                    <div class="error-text" id="niveau_svtError"></div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="goals" class="form-label">Objectifs d'orientation <span
-                                        class="required">*</span></label>
-                                <textarea id="goals" name="goals" class="form-input form-textarea" rows="4"
-                                    placeholder="Décrivez vos projets d'études supérieures, vos ambitions professionnelles..."
-                                    required></textarea>
-                                <div class="error-text" id="goalsError"></div>
+                                <label for="{{ form.attentes_lacs.id }}" class="form-label">
+                                    {{ form.attentes_lacs.label.text }} <!--span class="required">*</span-->
+                                </label>
+                                {{form.attentes_lacs}}
+                                <div class="error-text" id="attentes_lacsError"></div>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Documents à fournir (optionnel)</label>
+                                <label class="form-label">
+                                    {{ form.bulletin.label.text }} <!--span class="required">*</span-->
+                                </label>
                                 <div class="file-upload">
-                                    <input type="file" id="documents" name="documents" class="file-input" multiple
-                                        accept=".pdf,.jpg,.jpeg,.png">
-                                    <label for="documents" class="file-label">
+                                    {{ form.bulletin(class="file-input", id="bulletin") }}
+                                    <label for="bulletin" class="file-label">
                                         <i class="fas fa-cloud-upload-alt"></i>
                                         <div class="file-text">
                                             <strong>Cliquez pour ajouter des fichiers</strong><br>
@@ -1235,44 +1196,41 @@
                             <div class="message" id="step3Message"></div>
 
                             <div class="form-group">
-                                <label class="form-label">Type de programme <span class="required">*</span></label>
+                                <label class="form-label">{{ form.programme.label.text }} <span class="required">*</span></label>
                                 <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="programStandard" name="program" value="standard"
-                                            required>
-                                        <label for="programStandard">
-                                            <strong>Programme Standard</strong><br>
-                                            <small>Cours hebdomadaires + suivi personnalisé</small>
-                                        </label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="programIntensive" name="program" value="intensive"
-                                            required>
-                                        <label for="programIntensive">
-                                            <strong>Programme Intensif</strong><br>
-                                            <small>Préparation Bac + orientation supérieure</small>
-                                        </label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="programExcellence" name="program" value="excellence"
-                                            required>
-                                        <label for="programExcellence">
-                                            <strong>Programme Excellence</strong><br>
-                                            <small>Classes préparatoires + concours</small>
-                                        </label>
-                                    </div>
+                                    {% for subfield in form.programme %}
+                                        <div class="radio-item">
+                                            {{ subfield }}
+                                            {% if subfield.data == 'standard' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Standard</strong><br>
+                                                    <small>Cours en présentiel + suivi personnalisé</small>
+                                                </label>
+                                            {% elif subfield.data == 'ligne' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Ligne</strong><br>
+                                                    <small>Cours en ligne + suivi personnalisé</small>
+                                                </label>
+                                            {% elif subfield.data == 'domicile' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Domicile</strong><br>
+                                                    <small>Cours à domicile + suivi personnalisé</small>
+                                                </label>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                                <div class="error-text" id="programError"></div>
+                                <div class="error-text" id="programmeError"></div>
                             </div>
 
-                            <div class="form-group">
+                            <!--div class="form-group">
                                 <label class="form-label">Matières souhaitées <span class="required">*</span></label>
                                 <div class="checkbox-group" id="subjectsGroup">
                                     <div class="checkbox-item">
                                         <input type="checkbox" id="subjectMath" name="subjects" value="Mathématiques"
                                             required>
                                         <label for="subjectMath">
-                                            <strong>Mathématiques</strong><br>
+                                            <strong>Bureautique</strong><br>
                                             <small>180€/mois - 4h/semaine</small>
                                         </label>
                                     </div>
@@ -1280,7 +1238,7 @@
                                         <input type="checkbox" id="subjectPhysics" name="subjects"
                                             value="Physique-Chimie">
                                         <label for="subjectPhysics">
-                                            <strong>Physique-Chimie</strong><br>
+                                            <strong>Python</strong><br>
                                             <small>200€/mois - 4h/semaine</small>
                                         </label>
                                     </div>
@@ -1300,38 +1258,47 @@
                                     </div>
                                 </div>
                                 <div class="error-text" id="subjectsError"></div>
-                            </div>
+                            </div-->
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="startDate" class="form-label">Date de début souhaitée <span
-                                            class="required">*</span></label>
-                                    <select id="startDate" name="startDate" class="form-input form-select" required>
-                                        <option value="">Choisir une date</option>
-                                        <option value="septembre2025">Septembre 2025</option>
-                                        <option value="octobre2025">Octobre 2025</option>
-                                        <option value="novembre2025">Novembre 2025</option>
-                                        <option value="janvier2026">Janvier 2026</option>
-                                        <option value="immediate">Dès que possible</option>
-                                    </select>
-                                    <div class="error-text" id="startDateError"></div>
+                            <!--div class="form-group">
+                                <label class="form-label">Services souhaités <!--span class="required">*</span-></label>
+                                <div class="checkbox-group">
+                                    {% for subfield in form.services %}
+                                        <div class="checkbox-item">
+                                            {{ subfield }}
+                                            {% if subfield.data == 'bureautique' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Bureautique</strong><br>
+                                                    <small>10.000 fr</small>
+                                                </label>
+                                            {% elif subfield.data == 'python' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Initiation à Python</strong><br>
+                                                    <small>12.000 fr</small>
+                                                </label>
+                                            {% elif subfield.data == 'scolaire' %}
+                                                <label for="{{ subfield.id }}">
+                                                    <strong>Accompagnement scolaire</strong><br>
+                                                    <small>14.000 fr</small>
+                                                </label>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                                <div class="form-group">
-                                    <label for="schedule" class="form-label">Créneaux préférés <span
-                                            class="required">*</span></label>
-                                    <select id="schedule" name="schedule" class="form-input form-select" required>
-                                        <option value="">Choisir des créneaux</option>
-                                        <option value="weekday-afternoon">Semaine après-midi</option>
-                                        <option value="weekday-evening">Semaine soir</option>
-                                        <option value="saturday-morning">Samedi matin</option>
-                                        <option value="saturday-afternoon">Samedi après-midi</option>
-                                        <option value="flexible">Flexible</option>
-                                    </select>
-                                    <div class="error-text" id="scheduleError"></div>
-                                </div>
-                            </div>
 
-                            <div class="price-summary" id="priceSummary">
+                                <div class="error-text" id="servicesError"></div>
+                            </div-->
+
+                            <div class="form-group">
+                                <label for="{{ form.creneau.id }}" class="form-label">
+                                    {{ form.creneau.label.text }} <!--<span class="required">*</span>-->
+                                </label>
+                                {{form.creneau}}
+                                <div class="error-text" id="creneauError"></div>
+                            </div>
+                            
+
+                            <!--div class="price-summary" id="priceSummary">
                                 <h4>Récapitulatif tarifaire</h4>
                                 <div class="price-item">
                                     <span>Matières sélectionnées:</span>
@@ -1345,7 +1312,7 @@
                                     <span>Total mensuel:</span>
                                     <span id="totalPrice">85€</span>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
 
                         <!-- Step 4: Confirmation -->
@@ -1392,8 +1359,12 @@
                                         <span id="summaryMathLevel">-</span>
                                     </div>
                                     <div class="summary-item">
-                                        <span>Niveau Sciences:</span>
-                                        <span id="summaryScienceLevel">-</span>
+                                        <span>Niveau Sc Phy:</span>
+                                        <span id="summarySPLevel">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Niveau SVT:</span>
+                                        <span id="summarySVTLevel">-</span>
                                     </div>
                                 </div>
 
@@ -1404,20 +1375,20 @@
                                         <span id="summaryProgram">-</span>
                                     </div>
                                     <div class="summary-item">
-                                        <span>Matières:</span>
+                                        <span>Services:</span>
                                         <span id="summarySubjects">-</span>
                                     </div>
-                                    <div class="summary-item">
+                                    <!--div class="summary-item">
                                         <span>Début:</span>
                                         <span id="summaryStartDate">-</span>
-                                    </div>
+                                    </div-->
                                     <div class="summary-item">
                                         <span>Créneaux:</span>
                                         <span id="summarySchedule">-</span>
                                     </div>
                                 </div>
 
-                                <div class="summary-card">
+                                <!--div class="summary-card">
                                     <h4><i class="fas fa-euro-sign"></i> Tarification</h4>
                                     <div class="summary-item">
                                         <span>Frais d'inscription:</span>
@@ -1431,10 +1402,10 @@
                                         <span>Total premier mois:</span>
                                         <span id="summaryTotalPrice">-</span>
                                     </div>
-                                </div>
+                                </div-->
                             </div>
 
-                            <div class="form-group">
+                            <!--div class="form-group">
                                 <label class="form-label">Mode de paiement <span class="required">*</span></label>
                                 <div class="payment-methods">
                                     <div class="payment-method" data-method="card">
@@ -1466,9 +1437,9 @@
                                     </div>
                                 </div>
                                 <div class="error-text" id="paymentError"></div>
-                            </div>
+                            </div-->
 
-                            <div class="form-group">
+                            <!--div class="form-group">
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="terms" name="terms" required>
                                     <label for="terms">
@@ -1479,7 +1450,7 @@
                                     </label>
                                 </div>
                                 <div class="error-text" id="termsError"></div>
-                            </div>
+                            </div->
 
                             <div class="form-group">
                                 <div class="checkbox-item">
@@ -1488,7 +1459,7 @@
                                         Je souhaite recevoir les actualités et offres du L.AC.S par email.
                                     </label>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
 
                         <!-- Success Step -->
@@ -1538,52 +1509,17 @@
                                 <span class="btn-text">Suivant</span>
                                 <i class="fas fa-arrow-right"></i>
                             </button>
+                            <!-- Bouton submit Flask (affiché seulement à la dernière étape) -->
+                            <div id="submitButton" style="display: none;">
+                                {{ form.submit(class="btn btn-primary") }}
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2>Restez informé</h2>
-                <p>Abonnez-vous à notre newsletter pour recevoir toutes les actualités du L.AC.S directement dans votre
-                    boîte mail.</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
-                    <button type="submit" class="newsletter-btn">S'abonner</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="images/logo-full.png" alt="">
-                </div>
-                <div class="footer-links">
-                    <a href="index.html#accueil">Accueil</a>
-                    <a href="apropos.html">À propos</a>
-                    <a href="actualites.html">Actualités</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 L.AC.S - Tous droits réservés</p>
-            </div>
-        </div>
-    </footer>
-    <script src="header.js"></script>
-    <script src="inscription.js"></script>
-</body>
 
-</html>
+    <script src="{{url_for('static', filename='script/header.js')}}"></script>
+    <script src="{{url_for('static', filename='script/inscription.js')}}"></script>
+{%endblock%}

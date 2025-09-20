@@ -15,17 +15,12 @@ document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', 
 const handleInscriptionButton = () => {
     const inscriptionBtn = document.querySelector('.inscription-btn');
 
-    inscriptionBtn.addEventListener('click', () => {
-        // You can replace this with actual registration logic
-        window.location.href = 'inscription.html';
-        showNotification('Redirection vers la page d\'inscription...', 'success');
-
-        // Simulate redirect after 2 seconds
-        setTimeout(() => {
-            // window.location.href = '/inscription';
-            console.log('Redirect to inscription page');
-        }, 2000);
-    });
+    if (inscriptionBtn) {
+        inscriptionBtn.addEventListener('click', (e) => {
+            // Le lien va déjà vers la bonne route Flask, pas besoin de redirection
+            console.log('Redirection vers la page d\'inscription...');
+        });
+    }
 };
 
 const handleNavbarScroll = () => {

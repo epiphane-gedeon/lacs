@@ -34,141 +34,141 @@ class InscriptionForm {
         const formRows = step1.querySelectorAll('.form-row .form-group');
 
         // First row - Name fields
-        formRows[0].innerHTML = `
-            <label for="firstName" class="form-label">Prénom <span class="required">*</span></label>
-            <input type="text" id="firstName" name="firstName" class="form-input" required>
-            <div class="error-text" id="firstNameError"></div>
-        `;
+        // formRows[0].innerHTML = `
+        //     <label for="firstName" class="form-label">Prénom <span class="required">*</span></label>
+        //     <input type="text" id="firstName" name="firstName" class="form-input" required>
+        //     <div class="error-text" id="firstNameError"></div>
+        // `;
 
-        formRows[1].innerHTML = `
-            <label for="lastName" class="form-label">Nom <span class="required">*</span></label>
-            <input type="text" id="lastName" name="lastName" class="form-input" required>
-            <div class="error-text" id="lastNameError"></div>
-        `;
+        // formRows[1].innerHTML = `
+        //     <label for="lastName" class="form-label">Nom <span class="required">*</span></label>
+        //     <input type="text" id="lastName" name="lastName" class="form-input" required>
+        //     <div class="error-text" id="lastNameError"></div>
+        // `;
 
-        // Second row - Contact info
-        formRows[2].innerHTML = `
-            <label for="email" class="form-label">Email <span class="required">*</span></label>
-            <input type="email" id="email" name="email" class="form-input" required>
-            <div class="error-text" id="emailError"></div>
-        `;
+        // // Second row - Contact info
+        // formRows[2].innerHTML = `
+        //     <label for="email" class="form-label">Email <span class="required">*</span></label>
+        //     <input type="email" id="email" name="email" class="form-input" required>
+        //     <div class="error-text" id="emailError"></div>
+        // `;
 
-        formRows[3].innerHTML = `
-            <label for="phone" class="form-label">Téléphone <span class="required">*</span></label>
-            <input type="tel" id="phone" name="phone" class="form-input" required>
-            <div class="error-text" id="phoneError"></div>
-        `;
+        // formRows[3].innerHTML = `
+        //     <label for="phone" class="form-label">Téléphone <span class="required">*</span></label>
+        //     <input type="tel" id="phone" name="phone" class="form-input" required>
+        //     <div class="error-text" id="phoneError"></div>
+        // `;
 
-        // Third row - Birth info
-        formRows[4].innerHTML = `
-            <label for="birthDate" class="form-label">Date de naissance <span class="required">*</span></label>
-            <input type="date" id="birthDate" name="birthDate" class="form-input" required>
-            <div class="error-text" id="birthDateError"></div>
-        `;
+        // // Third row - Birth info
+        // formRows[4].innerHTML = `
+        //     <label for="birthDate" class="form-label">Date de naissance <span class="required">*</span></label>
+        //     <input type="date" id="birthDate" name="birthDate" class="form-input" required>
+        //     <div class="error-text" id="birthDateError"></div>
+        // `;
 
-        formRows[5].innerHTML = `
-            <label for="gender" class="form-label">Genre <span class="required">*</span></label>
-            <select id="gender" name="gender" class="form-input form-select" required>
-                <option value="">Choisir</option>
-                <option value="male">Masculin</option>
-                <option value="female">Féminin</option>
-            </select>
-            <div class="error-text" id="genderError"></div>
-        `;
+        // formRows[5].innerHTML = `
+        //     <label for="gender" class="form-label">Genre <span class="required">*</span></label>
+        //     <select id="gender" name="gender" class="form-input form-select" required>
+        //         <option value="">Choisir</option>
+        //         <option value="male">Masculin</option>
+        //         <option value="female">Féminin</option>
+        //     </select>
+        //     <div class="error-text" id="genderError"></div>
+        // `;
 
-        // Parent name label
-        const parentNameGroup = step1.querySelectorAll('.form-row')[3].querySelector('.form-group');
-        parentNameGroup.innerHTML = `
-            <label for="parentName" class="form-label">Nom du responsable <span class="required">*</span></label>
-            <input type="text" id="parentName" name="parentName" class="form-input" required>
-            <div class="error-text" id="parentNameError"></div>
-        `;
+        // // Parent name label
+        // const parentNameGroup = step1.querySelectorAll('.form-row')[3].querySelector('.form-group');
+        // parentNameGroup.innerHTML = `
+        //     <label for="parentName" class="form-label">Nom du responsable <span class="required">*</span></label>
+        //     <input type="text" id="parentName" name="parentName" class="form-input" required>
+        //     <div class="error-text" id="parentNameError"></div>
+        // `;
     }
 
     populateAcademicFields() {
         // Current level select
-        const currentLevelSelect = document.getElementById('currentLevel');
-        currentLevelSelect.innerHTML = `
-            <option value="">Choisir votre niveau</option>
-            <option value="3eme">3ème</option>
-            <option value="2nde">2nde</option>
-            <option value="1ere">1ère</option>
-            <option value="terminale">Terminale</option>
-            <option value="bac1">Bac+1</option>
-            <option value="bac2">Bac+2</option>
-        `;
+        // const currentLevelSelect = document.getElementById('currentLevel');
+        // currentLevelSelect.innerHTML = `
+        //     <option value="">Choisir votre niveau</option>
+        //     <option value="3eme">3ème</option>
+        //     <option value="2nde">2nde</option>
+        //     <option value="1ere">1ère</option>
+        //     <option value="terminale">Terminale</option>
+        //     <option value="bac1">Bac+1</option>
+        //     <option value="bac2">Bac+2</option>
+        // `;
 
-        // Math level select
-        const mathLevelSelect = document.getElementById('mathLevel');
-        mathLevelSelect.innerHTML = `
-            <option value="">Évaluer votre niveau</option>
-            <option value="excellent">Excellent (16-20/20)</option>
-            <option value="bon">Bon (14-16/20)</option>
-            <option value="moyen">Moyen (12-14/20)</option>
-            <option value="faible">Faible (10-12/20)</option>
-            <option value="difficile">Difficultés (< 10/20)</option>
-        `;
+        // // Math level select
+        // const mathLevelSelect = document.getElementById('mathLevel');
+        // mathLevelSelect.innerHTML = `
+        //     <option value="">Évaluer votre niveau</option>
+        //     <option value="excellent">Excellent (16-20/20)</option>
+        //     <option value="bon">Bon (14-16/20)</option>
+        //     <option value="moyen">Moyen (12-14/20)</option>
+        //     <option value="faible">Faible (10-12/20)</option>
+        //     <option value="difficile">Difficultés (< 10/20)</option>
+        // `;
 
-        // Specialties checkboxes
-        const checkboxGroup = document.querySelector('#step2 .checkbox-group');
-        checkboxGroup.innerHTML = `
-            <div class="checkbox-item">
-                <input type="checkbox" id="specMath" name="specialties" value="Mathématiques">
-                <label for="specMath">Mathématiques</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="specPhysics" name="specialties" value="Physique-Chimie">
-                <label for="specPhysics">Physique-Chimie</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="specSVT" name="specialties" value="SVT">
-                <label for="specSVT">Sciences de la Vie et de la Terre</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="specHGGSP" name="specialties" value="HGGSP">
-                <label for="specHGGSP">Histoire-Géographie</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="specSES" name="specialties" value="SES">
-                <label for="specSES">Sciences Économiques</label>
-            </div>
-        `;
+        // // Specialties checkboxes
+        // const checkboxGroup = document.querySelector('#step2 .checkbox-group');
+        // checkboxGroup.innerHTML = `
+        //     <div class="checkbox-item">
+        //         <input type="checkbox" id="specMath" name="specialties" value="Mathématiques">
+        //         <label for="specMath">Mathématiques</label>
+        //     </div>
+        //     <div class="checkbox-item">
+        //         <input type="checkbox" id="specPhysics" name="specialties" value="Physique-Chimie">
+        //         <label for="specPhysics">Physique-Chimie</label>
+        //     </div>
+        //     <div class="checkbox-item">
+        //         <input type="checkbox" id="specSVT" name="specialties" value="SVT">
+        //         <label for="specSVT">Sciences de la Vie et de la Terre</label>
+        //     </div>
+        //     <div class="checkbox-item">
+        //         <input type="checkbox" id="specHGGSP" name="specialties" value="HGGSP">
+        //         <label for="specHGGSP">Histoire-Géographie</label>
+        //     </div>
+        //     <div class="checkbox-item">
+        //         <input type="checkbox" id="specSES" name="specialties" value="SES">
+        //         <label for="specSES">Sciences Économiques</label>
+        //     </div>
+        // `;
 
-        // File upload text
-        const fileText = document.querySelector('.file-text');
-        fileText.innerHTML = `
-            <strong>Glissez vos documents ici</strong><br>
-            <small>ou cliquez pour parcourir</small><br>
-            <small>Bulletins, relevés de notes (PDF, JPG, PNG)</small>
-        `;
+        // // File upload text
+        // const fileText = document.querySelector('.file-text');
+        // fileText.innerHTML = `
+        //     <strong>Glissez vos documents ici</strong><br>
+        //     <small>ou cliquez pour parcourir</small><br>
+        //     <small>Bulletins, relevés de notes (PDF, JPG, PNG)</small>
+        // `;
     }
 
     populateCourseFields() {
-        // Program radio buttons
-        const programRadios = document.querySelectorAll('#step3 .radio-item label');
-        programRadios[0].innerHTML = `
-            <strong>Programme Standard</strong><br>
-            <small>Cours de soutien - 200€/mois</small>
-        `;
-        programRadios[1].innerHTML = `
-            <strong>Programme Intensif</strong><br>
-            <small>Perfectionnement - 350€/mois</small>
-        `;
-        programRadios[2].innerHTML = `
-            <strong>Programme Excellence</strong><br>
-            <small>Préparation concours - 500€/mois</small>
-        `;
+        // // Program radio buttons
+        // const programRadios = document.querySelectorAll('#step3 .radio-item label');
+        // programRadios[0].innerHTML = `
+        //     <strong>Programme Standard</strong><br>
+        //     <small>Cours de soutien - 200€/mois</small>
+        // `;
+        // programRadios[1].innerHTML = `
+        //     <strong>Programme Intensif</strong><br>
+        //     <small>Perfectionnement - 350€/mois</small>
+        // `;
+        // programRadios[2].innerHTML = `
+        //     <strong>Programme Excellence</strong><br>
+        //     <small>Préparation concours - 500€/mois</small>
+        // `;
 
-        // Subject checkboxes
-        const subjectLabels = document.querySelectorAll('#step3 .checkbox-item label');
-        subjectLabels[0].innerHTML = `
-            <strong>Mathématiques</strong><br>
-            <small>200€/mois - 4h/semaine</small>
-        `;
-        subjectLabels[1].innerHTML = `
-            <strong>Physique-Chimie</strong><br>
-            <small>180€/mois - 3h/semaine</small>
-        `;
+        // // Subject checkboxes
+        // const subjectLabels = document.querySelectorAll('#step3 .checkbox-item label');
+        // subjectLabels[0].innerHTML = `
+        //     <strong>Mathématiques</strong><br>
+        //     <small>200€/mois - 4h/semaine</small>
+        // `;
+        // subjectLabels[1].innerHTML = `
+        //     <strong>Physique-Chimie</strong><br>
+        //     <small>180€/mois - 3h/semaine</small>
+        // `;
     }
 
     bindEvents() {
@@ -209,21 +209,21 @@ class InscriptionForm {
         });
 
         // Subject selection for price calculation
-        document.querySelectorAll('input[name="subjects"]').forEach(checkbox => {
-            checkbox.addEventListener('change', () => this.updatePriceSummary());
-        });
+        // document.querySelectorAll('input[name="subjects"]').forEach(checkbox => {
+        //     checkbox.addEventListener('change', () => this.updatePriceSummary());
+        // });
 
-        // Payment method selection
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', () => {
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                method.classList.add('selected');
-                this.clearError(document.getElementById('paymentError'));
-            });
-        });
+        // // Payment method selection
+        // document.querySelectorAll('.payment-method').forEach(method => {
+        //     method.addEventListener('click', () => {
+        //         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+        //         method.classList.add('selected');
+        //         this.clearError(document.getElementById('paymentError'));
+        //     });
+        // });
 
         // File upload handling
-        document.getElementById('documents').addEventListener('change', (e) => {
+        document.getElementById('bulletin').addEventListener('change', (e) => {
             const files = e.target.files;
             const fileName = document.getElementById('fileName');
             if (files.length > 0) {
@@ -250,9 +250,8 @@ class InscriptionForm {
                 if (this.currentStep === 4) {
                     this.populateSummary();
                 }
-            } else {
-                this.submitForm();
             }
+            // Ne plus appeler submitForm() ici, le bouton submit s'en chargera
         }
     }
 
@@ -276,14 +275,19 @@ class InscriptionForm {
         // Update navigation buttons
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const submitButton = document.getElementById('submitButton');
         const btnText = nextBtn.querySelector('.btn-text');
 
         prevBtn.style.display = step > 1 ? 'flex' : 'none';
 
         if (step === this.totalSteps) {
-            btnText.textContent = 'Confirmer l\'inscription';
-            nextBtn.querySelector('i').className = 'fas fa-check';
+            // À la dernière étape, cacher le bouton Next et afficher le bouton Submit Flask
+            nextBtn.style.display = 'none';
+            submitButton.style.display = 'block';
         } else {
+            // Aux autres étapes, afficher le bouton Next et cacher le bouton Submit
+            nextBtn.style.display = 'flex';
+            submitButton.style.display = 'none';
             btnText.textContent = 'Suivant';
             nextBtn.querySelector('i').className = 'fas fa-arrow-right';
         }
@@ -336,7 +340,7 @@ class InscriptionForm {
     validateCurrentStep() {
         let isValid = true;
         const currentStepElement = document.getElementById(`step${this.currentStep}`);
-        const requiredFields = currentStepElement.querySelectorAll('[required]');
+        const requiredFields = currentStepElement.querySelectorAll('[required_on]');
 
         requiredFields.forEach(field => {
             if (!this.validateField(field)) {
@@ -346,17 +350,17 @@ class InscriptionForm {
 
         // Special validations
         if (this.currentStep === 3) {
-            // Check if at least one subject is selected
-            const selectedSubjects = document.querySelectorAll('input[name="subjects"]:checked');
-            if (selectedSubjects.length === 0) {
-                this.showError('subjectsError', 'Veuillez sélectionner au moins une matière');
-                isValid = false;
-            }
+            // Check if at least one service is selected
+            // const selectedServices = document.querySelectorAll('input[name="services"]:checked');
+            // if (selectedServices.length === 0) {
+            //     this.showError('servicesError', 'Veuillez sélectionner au moins un service');
+            //     isValid = false;
+            // }
 
-            // Check if program is selected
-            const selectedProgram = document.querySelector('input[name="program"]:checked');
-            if (!selectedProgram) {
-                this.showError('programError', 'Veuillez sélectionner un programme');
+            // Check if programme is selected
+            const selectedProgramme = document.querySelector('input[name="programme"]:checked');
+            if (!selectedProgramme) {
+                this.showError('programmeError', 'Veuillez sélectionner un programme');
                 isValid = false;
             }
         }
@@ -402,15 +406,15 @@ class InscriptionForm {
                         isValid = false;
                     }
                     break;
-                case 'phone':
-                case 'parentPhone':
-                    const phoneRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+                case 'telephone':
+                case 'telephone_parent':
+                    const phoneRegex = /^[0-9\s\-\+\(\)]{8,}$/;
                     if (!phoneRegex.test(value)) {
                         errorMessage = 'Format de téléphone invalide';
                         isValid = false;
                     }
                     break;
-                case 'birthDate':
+                case 'date_naissance':
                     const birthDate = new Date(value);
                     const today = new Date();
                     const age = today.getFullYear() - birthDate.getFullYear();
@@ -460,45 +464,53 @@ class InscriptionForm {
     populateSummary() {
         // Personal info summary
         document.getElementById('summaryName').textContent =
-            `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+            `${document.getElementById('prenom').value} ${document.getElementById('nom').value}`;
         document.getElementById('summaryEmail').textContent =
             document.getElementById('email').value;
         document.getElementById('summaryPhone').textContent =
-            document.getElementById('phone').value;
+            document.getElementById('telephone').value;
         document.getElementById('summaryParent').textContent =
-            document.getElementById('parentName').value;
+            document.getElementById('nom_parent').value;
 
         // Academic info summary
-        const levelSelect = document.getElementById('currentLevel');
+        const levelSelect = document.getElementById('niveau_etude');
         document.getElementById('summaryLevel').textContent =
             levelSelect.options[levelSelect.selectedIndex].text;
         document.getElementById('summarySchool').textContent =
-            document.getElementById('currentSchool').value;
+            document.getElementById('etablissement_actuel').value;
 
-        const mathSelect = document.getElementById('mathLevel');
-        document.getElementById('summaryMathLevel').textContent =
-            mathSelect.options[mathSelect.selectedIndex].text;
+        const mathSelect = document.getElementById('niveau_maths');
+        let mathText = mathSelect.options[mathSelect.selectedIndex].text;
+        mathText = mathText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summaryMathLevel').textContent = mathText;
 
-        const scienceSelect = document.getElementById('scienceLevel');
-        document.getElementById('summaryScienceLevel').textContent =
-            scienceSelect.options[scienceSelect.selectedIndex].text;
+        const scpSelect = document.getElementById('niveau_sp');
+        let spText = scpSelect.options[scpSelect.selectedIndex].text;
+        spText = spText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySPLevel').textContent = spText;
+
+        const svtSelect = document.getElementById('niveau_svt');
+        let svtText = svtSelect.options[svtSelect.selectedIndex].text;
+        svtText = svtText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySVTLevel').textContent = svtText;
 
         // Course info summary
-        const selectedProgram = document.querySelector('input[name="program"]:checked');
+        const selectedProgram = document.querySelector('input[name="programme"]:checked');
         document.getElementById('summaryProgram').textContent =
             selectedProgram ? selectedProgram.nextElementSibling.querySelector('strong').textContent : '-';
 
-        const selectedSubjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked'))
+        const selectedSubjects = Array.from(document.querySelectorAll('input[name="services"]:checked'))
             .map(cb => cb.value).join(', ');
         document.getElementById('summarySubjects').textContent = selectedSubjects || '-';
 
-        const startSelect = document.getElementById('startDate');
-        document.getElementById('summaryStartDate').textContent =
-            startSelect.options[startSelect.selectedIndex].text;
+        // const startSelect = document.getElementById('startDate');
+        // document.getElementById('summaryStartDate').textContent =
+        //     startSelect.options[startSelect.selectedIndex].text;
 
-        const scheduleSelect = document.getElementById('schedule');
-        document.getElementById('summarySchedule').textContent =
-            scheduleSelect.options[scheduleSelect.selectedIndex].text;
+        const scheduleSelect = document.getElementById('creneau');
+        let creneauText = scheduleSelect.options[scheduleSelect.selectedIndex].text;
+        creneauText = creneauText.replace(/\s*\(.*?\)\s*/g, '').trim();
+        document.getElementById('summarySchedule').textContent = creneauText;
 
         // Price summary
         const selectedSubjectElements = document.querySelectorAll('input[name="subjects"]:checked');
@@ -511,41 +523,7 @@ class InscriptionForm {
         document.getElementById('summaryTotalPrice').textContent = `${monthlyTotal + this.prices.inscription}€`;
     }
 
-    async submitForm() {
-        const nextBtn = document.getElementById('nextBtn');
-        const spinner = nextBtn.querySelector('.loading-spinner');
-        const btnText = nextBtn.querySelector('.btn-text');
-
-        // Show loading state
-        nextBtn.classList.add('loading');
-        nextBtn.disabled = true;
-        btnText.textContent = 'Traitement en cours...';
-
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // Generate reference number
-            const referenceNumber = `LACS-2025-${String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0')}`;
-            document.getElementById('referenceNumber').textContent = referenceNumber;
-
-            // Show success step
-            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
-            document.getElementById('stepSuccess').classList.add('active');
-            document.getElementById('navigationButtons').style.display = 'none';
-
-            // Send confirmation email (simulation)
-            this.sendConfirmationEmail();
-
-        } catch (error) {
-            console.error('Erreur lors de la soumission:', error);
-            this.showMessage('step4Message', 'Une erreur est survenue. Veuillez réessayer.', 'error');
-        } finally {
-            nextBtn.classList.remove('loading');
-            nextBtn.disabled = false;
-            btnText.textContent = 'Confirmer l\'inscription';
-        }
-    }
+    // Fonction submitForm supprimée - la soumission se fait naturellement avec le bouton submit
 
     sendConfirmationEmail() {
         // Simulation of email sending

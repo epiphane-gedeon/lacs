@@ -32,14 +32,32 @@
                         </div>
                     </li>
                     <li><a href="{{url_for('home')}}" class="nav-link">Accueil</a></li>
-                    <li><a href="" class="nav-link">À propos</a></li>
+                    <li><a href="{{url_for('apropos')}}" class="nav-link">À propos</a></li>
                     <li><a href="{{ url_for('actualites') }}" class="nav-link">Actualités</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <!--li><a href="{{ url_for('phototheque') }}" class="nav-link">Photothèque</a></li-->
+                    <li><a href="{{ url_for('contact') }}" class="nav-link">Contact</a></li>
+                    {% if current_user.is_authenticated and current_user.admin %}
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle">Administration <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for('add_article') }}" class="nav-link">Ajouter Article</a></li>
+                                <li><a href="{{ url_for('add_categorie') }}" class="nav-link">Ajouter Catégorie</a></li>
+                                <li><a href="{{ url_for('liste_inscriptions') }}" class="nav-link">Liste Inscriptions</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
                 <a class="inscription-btn" href="{{url_for('inscription')}}">Inscription</a>
+                    {% if current_user.is_authenticated %}
+                        <a class="admin-btn" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    {% endif %}
             </div>
         </nav>
     </header>
+
+    
 
     {% block content %}{% endblock %}
     <section class="newsletter">
@@ -63,10 +81,10 @@
                     <img src="{{url_for('static', filename='images/logo-full.png')}}" alt="">
                 </div>
                 <div class="footer-links">
-                    <a href="index.html#accueil">Accueil</a>
-                    <a href="apropos.html">À propos</a>
-                    <a href="actualites.html">Actualités</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="{{ url_for('home') }}">Accueil</a>
+                    <a href="{{ url_for('apropos') }}">À propos</a>
+                    <a href="{{ url_for('actualites') }}">Actualités</a>
+                    <a href="{{ url_for('contact') }}">Contact</a>
                 </div>
                 <div class="footer-social">
                     <a href="#"><i class="fab fa-facebook"></i></a>

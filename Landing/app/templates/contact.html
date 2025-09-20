@@ -1,16 +1,305 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - L.AC.S | Laboratoire d'ACélération Scientifique</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="icon" href="images/logo-full.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <style>
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contactez le <span class="highlight">L.AC.S</span></h1>
+                <p>Nous sommes là pour répondre à toutes vos questions et vous accompagner dans votre parcours vers
+                    l'excellence scientifique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h2 class="form-title">Envoyez-nous un message</h2>
+                    <p class="form-subtitle">Remplissez ce formulaire et nous vous répondrons dans les plus brefs
+                        délais.</p>
+
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        Votre message a été envoyé avec succès ! Nous vous répondrons bientôt.
+                    </div>
+
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Une erreur s'est produite. Veuillez réessayer ou nous contacter directement.
+                    </div>
+
+                    <!-- Messages flash de Flask -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'success' %}
+                                    <div class="success-message show">
+                                        <i class="fas fa-check-circle"></i>
+                                        {{ message }}
+                                    </div>
+                                {% elif category == 'error' %}
+                                    <div class="error-message show">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('contact') }}" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="form-group">
+                            {{ form.firstName.label(class="form-label") }}
+                            {{ form.firstName() }}
+                            {% if form.firstName.errors %}
+                                <div class="error-text show">{{ form.firstName.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.lastName.label(class="form-label") }}
+                            {{ form.lastName() }}
+                            {% if form.lastName.errors %}
+                                <div class="error-text show">{{ form.lastName.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email() }}
+                            {% if form.email.errors %}
+                                <div class="error-text show">{{ form.email.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.phone.label(class="form-label") }}
+                            {{ form.phone() }}
+                            {% if form.phone.errors %}
+                                <div class="error-text show">{{ form.phone.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.subject.label(class="form-label") }}
+                            {{ form.subject() }}
+                            {% if form.subject.errors %}
+                                <div class="error-text show">{{ form.subject.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.message.label(class="form-label") }}
+                            {{ form.message() }}
+                            {% if form.message.errors %}
+                                <div class="error-text show">{{ form.message.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-checkbox-group">
+                            {{ form.consent() }}
+                            {{ form.consent.label(class="checkbox-label") }}
+                            {% if form.consent.errors %}
+                                <div class="error-text show">{{ form.consent.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        {{ form.submit(class="submit-btn", id="submitBtn") }}
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="info-title">Adresse</h3>
+                        <div class="info-details">
+                            AGOE ASSIYEYE non loin de TOTAL MINAMADOU 1<br>
+                            Annexe à AGOE SOGBOSSITO<br>
+                            <a href="#" class="info-link">Voir sur la carte</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="info-title">Téléphone</h3>
+                        <div class="info-details">
+                            <a href="tel:+22898481881" class="info-link">+228 98 48 18 81</a><br>
+                            <a href="tel:+22898481885" class="info-link">+228 98 48 18 85</a><br>
+                            <a href="tel:+22871434332" class="info-link">+228 71 43 43 32</a><br>
+                            <small>Lundi - Vendredi : 8h00 - 18h00</small>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="info-title">Email</h3>
+                        <div class="info-details">
+                            <a href="mailto:lacsetudes@gmail.com" class="info-link">lacsetudes@gmail.com</a><br>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="info-title">WhatsApp</h3>
+                        <div class="info-details">
+                            <a href="https://wa.me/22898481881" class="info-link">+228 98 48 18 81</a><br>
+                            <a href="https://wa.me/228991865548" class="info-link">+228 91 86 55 48</a><br>
+                            <a href="https://wa.me/22890387306" class="info-link">+228 90 38 73 06</a><br>
+                            <small>Réponse rapide 7j/7</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Nous Trouver</h2>
+            <p class="section-subtitle">Notre laboratoire se situe à Lomé, facilement accessible par la route.</p>
+
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Carte Interactive</h3>
+                    <p>AGOE ASSIYEYE non loin de TOTAL MINAMADOU 1</p>
+                    <p>Annexe à AGOE SOGBOSSITO</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours-section">
+        <div class="container">
+            <div class="hours-content">
+                <h2 class="section-title" style="color: white;">Horaires d'Ouverture</h2>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">Nous sommes disponibles pour vous
+                    accueillir aux horaires suivants :</p>
+
+                <div class="hours-grid">
+                    <div class="hours-card">
+                        <h3><i class="fas fa-chalkboard-teacher"></i> Accueil & Administration</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>8h00 - 18h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
+                            <li><span>Dimanche</span><span>Fermé</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="hours-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Cours & Formations</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>14h00 - 20h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 18h00</span></li>
+                            <li><span>Dimanche</span><span>9h00 - 12h00</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="hours-card">
+                        <h3><i class="fas fa-phone-alt"></i> Support Téléphonique</h3>
+                        <ul class="hours-list">
+                            <li><span>Lundi - Vendredi</span><span>8h00 - 19h00</span></li>
+                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
+                            <li><span>Urgences</span><span>24h/7j WhatsApp</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Questions Fréquentes</h2>
+            <p class="section-subtitle">Trouvez rapidement les réponses à vos questions les plus courantes.</p>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment puis-je inscrire mon enfant au L.AC.S ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            L'inscription se fait en plusieurs étapes : entretien préalable, test de positionnement,
+                            validation du dossier et choix des créneaux. Contactez-nous pour commencer le processus.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels sont les tarifs des formations ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nos tarifs varient selon le niveau et l'intensité de l'accompagnement. Comptez entre 180€ et
+                            350€ par mois. Des facilités de paiement et bourses d'excellence sont disponibles.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous des cours en ligne ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Oui, nous proposons un format hybride avec cours en présentiel et sessions en ligne. Notre
+                            plateforme numérique permet un suivi continu et des ressources accessibles 24h/24.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quelle est la taille des groupes de travail ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nous limitons nos groupes à 8-12 élèves maximum pour garantir un suivi personnalisé. Pour
+                            certains programmes d'excellence, les groupes peuvent être encore plus restreints.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Puis-je visiter vos locaux avant inscription ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolument ! Nous organisons des portes ouvertes chaque premier samedi du mois. Vous pouvez
+                            aussi prendre rendez-vous pour une visite personnalisée.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <style>
         /* CSS Variables */
         :root {
             --primary-yellow: #FFD700;
@@ -108,7 +397,7 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 4rem;
             align-items: start;
         }
@@ -742,352 +1031,6 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <!-- Header Navigation -->
-    <header class="header sticky-nav">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo desktop-logo">
-                    <img src="images/logo.png" alt="L.AC.S Logo">
-                    <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                </div>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-logo-mobile">
-                        <div class="nav-logo">
-                            <img src="images/logo.png" alt="L.AC.S Logo">
-                            <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                        </div>
-                    </li>
-                    <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
-                    <li><a href="apropos.html" class="nav-link">À propos</a></li>
-                    <li><a href="actualites.html" class="nav-link">Actualités</a></li>
-                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                </ul>
-                <button class="inscription-btn">Inscription</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Contactez le <span class="highlight">L.AC.S</span></h1>
-                <p>Nous sommes là pour répondre à toutes vos questions et vous accompagner dans votre parcours vers
-                    l'excellence scientifique.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <h2 class="form-title">Envoyez-nous un message</h2>
-                    <p class="form-subtitle">Remplissez ce formulaire et nous vous répondrons dans les plus brefs
-                        délais.</p>
-
-                    <div class="success-message" id="successMessage">
-                        <i class="fas fa-check-circle"></i>
-                        Votre message a été envoyé avec succès ! Nous vous répondrons bientôt.
-                    </div>
-
-                    <div class="error-message" id="errorMessage">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Une erreur s'est produite. Veuillez réessayer ou nous contacter directement.
-                    </div>
-
-                    <form id="contactForm" novalidate>
-                        <div class="form-group">
-                            <label for="firstName" class="form-label">Prénom *</label>
-                            <input type="text" id="firstName" name="firstName" class="form-input" required>
-                            <div class="error-text" id="firstNameError">Veuillez saisir votre prénom.</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastName" class="form-label">Nom *</label>
-                            <input type="text" id="lastName" name="lastName" class="form-input" required>
-                            <div class="error-text" id="lastNameError">Veuillez saisir votre nom.</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email *</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                            <div class="error-text" id="emailError">Veuillez saisir une adresse email valide.</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Téléphone</label>
-                            <input type="tel" id="phone" name="phone" class="form-input">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject" class="form-label">Sujet *</label>
-                            <select id="subject" name="subject" class="form-input form-select" required>
-                                <option value="">Choisissez un sujet</option>
-                                <option value="inscription">Demande d'inscription</option>
-                                <option value="information">Demande d'information</option>
-                                <option value="rdv">Prise de rendez-vous</option>
-                                <option value="pedagogie">Questions pédagogiques</option>
-                                <option value="partenariat">Partenariat</option>
-                                <option value="autre">Autre</option>
-                            </select>
-                            <div class="error-text" id="subjectError">Veuillez choisir un sujet.</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message" class="form-label">Message *</label>
-                            <textarea id="message" name="message" class="form-input form-textarea" rows="5" required
-                                placeholder="Décrivez votre demande en détail..."></textarea>
-                            <div class="error-text" id="messageError">Veuillez saisir votre message.</div>
-                        </div>
-
-                        <div class="form-checkbox-group">
-                            <input type="checkbox" id="consent" name="consent" class="form-checkbox" required>
-                            <label for="consent" class="checkbox-label">
-                                J'accepte que mes données personnelles soient utilisées pour répondre à ma demande. *
-                            </label>
-                        </div>
-                        <div class="error-text" id="consentError">Veuillez accepter les conditions.</div>
-
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            <span class="loading-spinner"></span>
-                            <span class="btn-text">Envoyer le message</span>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h3 class="info-title">Adresse</h3>
-                        <div class="info-details">
-                            123 Avenue de la Science<br>
-                            75001 Paris, France<br>
-                            <a href="#" class="info-link">Voir sur la carte</a>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h3 class="info-title">Téléphone</h3>
-                        <div class="info-details">
-                            <a href="tel:+33123456789" class="info-link">+33 1 23 45 67 89</a><br>
-                            <small>Lundi - Vendredi : 8h00 - 18h00</small>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3 class="info-title">Email</h3>
-                        <div class="info-details">
-                            <a href="mailto:contact@lacs.fr" class="info-link">contact@lacs.fr</a><br>
-                            <a href="mailto:admissions@lacs.fr" class="info-link">admissions@lacs.fr</a>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <h3 class="info-title">WhatsApp</h3>
-                        <div class="info-details">
-                            <a href="https://wa.me/33123456789" class="info-link">+33 1 23 45 67 89</a><br>
-                            <small>Réponse rapide 7j/7</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="container">
-            <h2 class="section-title">Nous Trouver</h2>
-            <p class="section-subtitle">Notre laboratoire se situe au cœur de Paris, facilement accessible par les
-                transports en commun.</p>
-
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h3>Carte Interactive</h3>
-                    <p>123 Avenue de la Science, 75001 Paris</p>
-                    <p>Métro : Ligne 1, 4, 7 - Station Châtelet</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Hours Section -->
-    <section class="hours-section">
-        <div class="container">
-            <div class="hours-content">
-                <h2 class="section-title" style="color: white;">Horaires d'Ouverture</h2>
-                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">Nous sommes disponibles pour vous
-                    accueillir aux horaires suivants :</p>
-
-                <div class="hours-grid">
-                    <div class="hours-card">
-                        <h3><i class="fas fa-chalkboard-teacher"></i> Accueil & Administration</h3>
-                        <ul class="hours-list">
-                            <li><span>Lundi - Vendredi</span><span>8h00 - 18h00</span></li>
-                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
-                            <li><span>Dimanche</span><span>Fermé</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="hours-card">
-                        <h3><i class="fas fa-graduation-cap"></i> Cours & Formations</h3>
-                        <ul class="hours-list">
-                            <li><span>Lundi - Vendredi</span><span>14h00 - 20h00</span></li>
-                            <li><span>Samedi</span><span>9h00 - 18h00</span></li>
-                            <li><span>Dimanche</span><span>9h00 - 12h00</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="hours-card">
-                        <h3><i class="fas fa-phone-alt"></i> Support Téléphonique</h3>
-                        <ul class="hours-list">
-                            <li><span>Lundi - Vendredi</span><span>8h00 - 19h00</span></li>
-                            <li><span>Samedi</span><span>9h00 - 17h00</span></li>
-                            <li><span>Urgences</span><span>24h/7j WhatsApp</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Questions Fréquentes</h2>
-            <p class="section-subtitle">Trouvez rapidement les réponses à vos questions les plus courantes.</p>
-
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Comment puis-je inscrire mon enfant au L.AC.S ?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            L'inscription se fait en plusieurs étapes : entretien préalable, test de positionnement,
-                            validation du dossier et choix des créneaux. Contactez-nous pour commencer le processus.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Quels sont les tarifs des formations ?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Nos tarifs varient selon le niveau et l'intensité de l'accompagnement. Comptez entre 180€ et
-                            350€ par mois. Des facilités de paiement et bourses d'excellence sont disponibles.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Proposez-vous des cours en ligne ?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Oui, nous proposons un format hybride avec cours en présentiel et sessions en ligne. Notre
-                            plateforme numérique permet un suivi continu et des ressources accessibles 24h/24.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Quelle est la taille des groupes de travail ?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Nous limitons nos groupes à 8-12 élèves maximum pour garantir un suivi personnalisé. Pour
-                            certains programmes d'excellence, les groupes peuvent être encore plus restreints.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Puis-je visiter vos locaux avant inscription ?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Absolument ! Nous organisons des portes ouvertes chaque premier samedi du mois. Vous pouvez
-                            aussi prendre rendez-vous pour une visite personnalisée.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2>Restez informé</h2>
-                <p>Abonnez-vous à notre newsletter pour recevoir toutes les actualités du L.AC.S directement dans votre
-                    boîte mail.</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
-                    <button type="submit" class="newsletter-btn">S'abonner</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="images/logo-full.png" alt="">
-                </div>
-                <div class="footer-links">
-                    <a href="index.html#accueil">Accueil</a>
-                    <a href="apropos.html">À propos</a>
-                    <a href="actualites.html">Actualités</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 L.AC.S - Tous droits réservés</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         // Contact Form Management
         class ContactForm {
@@ -1457,7 +1400,6 @@
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize classes
-            new ContactForm();
             new FAQ();
             new Navigation();
             new ScrollAnimations();
@@ -1516,7 +1458,5 @@
             });
         });
     </script>
-    <script src="header.js"></script>
-</body>
-
-</html>
+    <script src="{{ url_for('static', filename='script/header.js') }}"></script>
+{% endblock %}

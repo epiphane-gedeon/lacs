@@ -1,17 +1,694 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À propos - L.AC.S | Laboratoire d'ACélération Scientifique</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="icon" href="images/logo-full.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+{% block content %}
+<!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>À propos du <span class="highlight">L.AC.S</span></h1>
+            <p>Le Laboratoire d'ACélération Scientifique est une structure d'excellence dédiée à la formation
+                scientifique de haut niveau. Notre mission est d'accompagner les élèves vers la réussite académique
+                et professionnelle dans les domaines scientifiques.</p>
 
-    <style>
+            <div class="stats-overview">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Années d'expérience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">347</div>
+                    <div class="stat-label">Élèves formés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Taux de réussite</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Professeurs experts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="container">
+            <h2 class="section-title">Notre Mission</h2>
+            <div class="mission-content">
+                <div class="mission-text">
+                    <h3>Excellence, Innovation, Accompagnement</h3>
+                    <p>Le Laboratoire d'Accélération Scientifique (L.AC.S) est une structure de suivi, d'accompagnement  et d'orientation dédiée aux élèves des séries scientifiques et aux étudiants scientifiques. Son objectif principal est de favoriser l'excellence académique et le développement personnel des apprenants grâce à un encadrement rigoureux et structuré.</p>
+                    <p>Avec son programme ayant fait ses preuves pendant 04 ans déjà avec  des résultats parlants et des boursiers ici au Togo et à l'Etranger, il continue par faire ses preuves dans le système éducatif avec des futurs génies qu'il ne cesse de former au quotidien. </p>
+
+                    <div class="mission-values">
+                        <div class="value-item">
+                            <i class="fas fa-target"></i>
+                            <h4>Excellence</h4>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Innovation</h4>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-handshake"></i>
+                            <h4>Accompagnement</h4>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-heart"></i>
+                            <h4>Bienveillance</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-image">
+                    <div class="image-placeholder">
+                        <!--<i class="fas fa-atom"></i>-->
+                        <img src="{{url_for('static', filename='images/image.png')}}" alt="Notre Mission">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section class="classes">
+        <div class="container">
+            <h2 class="section-title">Nos Classes</h2>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Quatrième</h3>
+                    <p>Initiation approfondie aux sciences avec renforcement des bases mathématiques et découverte des
+                        sciences expérimentales.</p>
+                    <div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 20 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>6h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Sciences Physiques</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3>Troisième</h3>
+                    <p>Consolidation des acquis scientifiques et préparation au Brevet. Introduction aux méthodes
+                        scientifiques rigoureuses.</p>
+                    <div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 20 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>6h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Physique-Chimie</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Seconde Scientifique</h3>
+                    <p>Consolidation des bases scientifiques et orientation vers les spécialités. Accompagnement dans le
+                        choix des enseignements de spécialité.</p>
+                    <div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 20 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>8h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Physique-Chimie</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3>Première Scientifique</h3>
+                    <p>Approfondissement des spécialités choisies avec un focus sur la méthodologie et la préparation
+                        aux épreuves anticipées.</p>
+                    <div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 20 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>12h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>2 spécialités + enseignements communs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Terminale Scientifique</h3>
+                    <p>Préparation intensive au baccalauréat et aux études supérieures. Accompagnement dans
+                        l'orientation post-bac.</p>
+                    <div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 20 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>12h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>2 spécialités + options</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section class="subjects">
+        <div class="container">
+            <h2 class="section-title">Nos Matières</h2>
+
+            <!--div class="subjects-tabs">
+                <button class="tab-btn active" data-tab="maths">Mathématiques</button>
+                <button class="tab-btn" data-tab="physics">Physique-Chimie</button>
+                <button class="tab-btn" data-tab="bio">Sciences de la Vie</button>
+                <button class="tab-btn" data-tab="other">Autres</button>
+            </div-->
+
+            <div class="tab-content active" id="maths">
+                <div class="subjects-grid">
+                    <div class="subject-item">
+                        <i class="fas fa-square-root-alt"></i>
+                        <h4>Mathématiques</h4>
+                        <p>Équations, polynômes, suites</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Sciences Physiques</h4>
+                        <p>Forces, mouvements, énergies</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-dna"></i>
+                        <h4>Sciences de la Vie et de la Terre</h4>
+                        <p>Biologie, écologie, géologie</p>
+                    </div>
+                    <!--div class="subject-item">
+                        <i class="fas fa-dice"></i>
+                        <h4>Probabilités</h4>
+                        <p>Statistiques et probabilités</p>
+                    </div-->
+                </div>
+            </div>
+
+            <div class="tab-content" id="physics">
+                <div class="subjects-grid">
+                    <div class="subject-item">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Électricité</h4>
+                        <p>Circuits, électromagnétisme</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-wave-square"></i>
+                        <h4>Mécanique</h4>
+                        <p>Forces, mouvements, énergies</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-atom"></i>
+                        <h4>Chimie</h4>
+                        <p>Réactions, équilibres, cinétique</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-thermometer-half"></i>
+                        <h4>Thermodynamique</h4>
+                        <p>Chaleur, température, entropie</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="bio">
+                <div class="subjects-grid">
+                    <div class="subject-item">
+                        <i class="fas fa-dna"></i>
+                        <h4>Génétique</h4>
+                        <p>ADN, hérédité, mutations</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-leaf"></i>
+                        <h4>Écologie</h4>
+                        <p>Écosystèmes, biodiversité</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-brain"></i>
+                        <h4>Neurobiologie</h4>
+                        <p>Système nerveux, réflexes</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-heartbeat"></i>
+                        <h4>Physiologie</h4>
+                        <p>Fonctions vitales, métabolisme</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="other">
+                <div class="subjects-grid">
+                    <div class="subject-item">
+                        <i class="fas fa-globe"></i>
+                        <h4>Géologie</h4>
+                        <p>Structure terrestre, roches</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Informatique</h4>
+                        <p>Programmation, algorithmes</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-language"></i>
+                        <h4>Anglais Scientifique</h4>
+                        <p>Terminologie, rédaction</p>
+                    </div>
+                    <div class="subject-item">
+                        <i class="fas fa-book-open"></i>
+                        <h4>Méthodologie</h4>
+                        <p>Techniques de travail, organisation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="paiement">
+        <div class="container">
+            <h2 class="section-title">Modalités Financières</h2>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Collegiens</h3>
+                    <p>8.000 FCFA/mois</p>
+                    <!--div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 18 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>16h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Sciences Physiques, SVT</span>
+                        </div>
+                    </div-->
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Seconde</h3>
+                    <p>12.000 FCFA/mois</p>
+                    <!--div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 16 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>18h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Physique-Chimie, SVT</span>
+                        </div>
+                    </div-->
+                </div>
+
+                <div class="class-card">
+                    <div class="class-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Première et Terminale</h3>
+                    <p>15.000 FCFA/mois</p>
+                    <!--div class="class-details">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Classes de 15 élèves maximum</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>20h de cours par semaine</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Mathématiques, Physique-Chimie, SVT</span>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+            <div class="alert alert-info" style="margin-top: 20px;">
+                <p><strong>Note :</strong> Les frais d'inscription annuels sont de 2.000 FCFA, payables en une seule fois au début de l'année scolaire.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <!--section class="team">
+        <div class="container">
+            <h2 class="section-title">Notre Équipe d'Encadrement</h2>
+            <div class="team-carousel">
+                <div class="team-slides" id="teamSlides">
+                    <div class="team-member active">
+                        <div class="member-photo">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Dr. Marie Dubois</h3>
+                        <div class="member-role">Directrice Pédagogique</div>
+                        <div class="member-bio">
+                            Agrégée de Physique-Chimie, docteure en Sciences. Avec plus de 20 ans d'expérience dans
+                            l'enseignement scientifique et la pédagogie innovante, elle dirige notre équipe pédagogique
+                            avec passion et expertise. Spécialisée dans le développement de méthodes d'apprentissage
+                            adaptées à chaque profil d'élève.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Physique</span>
+                            <span class="specialty-tag">Chimie</span>
+                            <span class="specialty-tag">Pédagogie</span>
+                            <span class="specialty-tag">Innovation</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">20+</span>
+                                    <span class="label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">500+</span>
+                                    <span class="label">Élèves formés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">15</span>
+                                    <span class="label">Publications</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Prof. Jean Martin</h3>
+                        <div class="member-role">Responsable Mathématiques</div>
+                        <div class="member-bio">
+                            Ancien normalien et agrégé de Mathématiques, le Professeur Martin est notre expert en
+                            préparation aux concours et formations d'excellence. Sa pédagogie rigoureuse et
+                            bienveillante permet aux élèves de développer une solide culture mathématique et de dépasser
+                            leurs limites.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Mathématiques</span>
+                            <span class="specialty-tag">Analyse</span>
+                            <span class="specialty-tag">Concours</span>
+                            <span class="specialty-tag">Excellence</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">25+</span>
+                                    <span class="label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">800+</span>
+                                    <span class="label">Élèves formés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">95%</span>
+                                    <span class="label">Réussite concours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Dr. Sophie Laurent</h3>
+                        <div class="member-role">Responsable SVT</div>
+                        <div class="member-bio">
+                            Docteure en Biologie, spécialisée en génétique moléculaire, Dr. Laurent est passionnée par
+                            la transmission des sciences du vivant. Elle rend accessible les concepts les plus complexes
+                            grâce à sa pédagogie interactive et ses nombreuses expériences pratiques.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Biologie</span>
+                            <span class="specialty-tag">Génétique</span>
+                            <span class="specialty-tag">Écologie</span>
+                            <span class="specialty-tag">Recherche</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">15+</span>
+                                    <span class="label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">400+</span>
+                                    <span class="label">Élèves formés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">12</span>
+                                    <span class="label">Publications scientifiques</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <h3>M. Pierre Durand</h3>
+                        <div class="member-role">Conseiller d'Orientation</div>
+                        <div class="member-bio">
+                            Psychologue de l'éducation, spécialisé dans l'orientation scientifique et l'accompagnement
+                            des étudiants. Il aide nos élèves à construire leur projet d'avenir en tenant compte de
+                            leurs aspirations, leurs compétences et les réalités du marché de l'emploi scientifique.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Orientation</span>
+                            <span class="specialty-tag">Psychologie</span>
+                            <span class="specialty-tag">Coaching</span>
+                            <span class="specialty-tag">Accompagnement</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">12+</span>
+                                    <span class="label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">600+</span>
+                                    <span class="label">Élèves accompagnés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">90%</span>
+                                    <span class="label">Satisfaction orientation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
+                        <h3>Dr. Anne Petit</h3>
+                        <div class="member-role">Coordinatrice Recherche</div>
+                        <div class="member-bio">
+                            Ancienne chercheuse au CNRS, Dr. Petit développe nos programmes de recherche appliquée pour
+                            les élèves. Elle initie nos étudiants aux méthodes de recherche scientifique et coordonne
+                            les projets innovants qui enrichissent leur formation.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Recherche</span>
+                            <span class="specialty-tag">Innovation</span>
+                            <span class="specialty-tag">Projets</span>
+                            <span class="specialty-tag">CNRS</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">18+</span>
+                                    <span class="label">Années recherche</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">25</span>
+                                    <span class="label">Projets menés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">30+</span>
+                                    <span class="label">Publications</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>M. Thomas Moreau</h3>
+                        <div class="member-role">Responsable Vie Scolaire</div>
+                        <div class="member-bio">
+                            Éducateur spécialisé, M. Moreau veille au bien-être de nos élèves et coordonne les activités
+                            extra-scolaires. Il crée un environnement propice à l'épanouissement personnel et
+                            académique, en développant l'esprit d'équipe et la confiance en soi.
+                        </div>
+                        <div class="member-specialties">
+                            <span class="specialty-tag">Éducation</span>
+                            <span class="specialty-tag">Animation</span>
+                            <span class="specialty-tag">Suivi</span>
+                            <span class="specialty-tag">Bien-être</span>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-stats">
+                                <div class="stat-info">
+                                    <span class="number">10+</span>
+                                    <span class="label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">1000+</span>
+                                    <span class="label">Élèves accompagnés</span>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="number">50+</span>
+                                    <span class="label">Activités organisées</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                    <button class="indicator" data-slide="3"></button>
+                    <button class="indicator" data-slide="4"></button>
+                    <button class="indicator" data-slide="5"></button>
+                </div>
+                <button class="carousel-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coordinator Section ->
+    <section class="coordinator">
+        <div class="container">
+            <div class="coordinator-content">
+                <div class="coordinator-photo">
+                    <i class="fas fa-user-crown"></i>
+                </div>
+                <div class="coordinator-info">
+                    <h2>M. Jérôme NFEIDE</h2>
+                    <div class="coordinator-title">Coordinateur Principal & Fondateur</div>
+                    <div class="coordinator-bio">
+                        Ancien élève de l'École Normale Supérieure et docteur en Physique Théorique, le Professeur
+                        Rousseau a fondé le L.AC.S en 2008 avec une vision claire : démocratiser l'excellence
+                        scientifique. Passionné par l'enseignement et l'innovation pédagogique, il a développé une
+                        méthode unique d'apprentissage qui combine rigueur académique et accompagnement personnalisé.
+                        <br><br>
+                        Sous sa direction, le L.AC.S est devenu une référence dans la formation scientifique, formant
+                        plus de 2500 élèves et maintenant un taux de réussite exceptionnel de 98% au baccalauréat.
+                    </div>
+                    <div class="coordinator-achievements">
+                        <div class="achievement-item">
+                            <h4>Formation Académique</h4>
+                            <p>ENS Paris, Doctorat en Physique Théorique, Agrégation de Physique</p>
+                        </div>
+                        <div class="achievement-item">
+                            <h4>Expérience</h4>
+                            <p>25 ans d'enseignement, 15 ans de direction d'établissement</p>
+                        </div>
+                        <div class="achievement-item">
+                            <h4>Publications</h4>
+                            <p>Auteur de 3 manuels scolaires et 15 articles de recherche</p>
+                        </div>
+                        <div class="achievement-item">
+                            <h4>Reconnaissances</h4>
+                            <p>Prix de l'Innovation Pédagogique 2019, Chevalier des Palmes Académiques</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA ->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Rejoignez l'Excellence Scientifique</h2>
+            <p>Découvrez comment le L.AC.S peut transformer votre parcours scientifique. Contactez-nous pour une
+                consultation personnalisée et visitez nos installations.</p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="btn-primary">Nous Contacter</a>
+                <a href="#" class="btn-secondary">Demander une Brochure</a>
+            </div>
+        </div>
+    </section-->
+
+      <style>
         * {
             margin: 0;
             padding: 0;
@@ -188,7 +865,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            /*box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);*/
             position: relative;
             overflow: hidden;
         }
@@ -200,7 +877,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 215, 0, 0.3);
             pointer-events: none;
             z-index: 1;
         }
@@ -326,7 +1002,7 @@
 
         .subjects-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
 
@@ -997,690 +1673,6 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <!-- Header Navigation -->
-    <header class="header sticky-nav">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo desktop-logo">
-                    <img src="images/logo.png" alt="L.AC.S Logo">
-                    <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                </div>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-logo-mobile">
-                        <div class="nav-logo">
-                            <img src="images/logo.png" alt="L.AC.S Logo">
-                            <!-- <span class="tagline">LABORATOIRE D'ACCÉLÉRATION SCIENTIFIQUE</span> -->
-                        </div>
-                    </li>
-                    <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
-                    <li><a href="apropos.html" class="nav-link active">À propos</a></li>
-                    <li><a href="actualites.html" class="nav-link">Actualités</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <button class="inscription-btn">Inscription</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>À propos du <span class="highlight">L.AC.S</span></h1>
-            <p>Le Laboratoire d'ACélération Scientifique est un établissement d'excellence dédié à la formation
-                scientifique de haut niveau. Notre mission est d'accompagner les étudiants vers la réussite académique
-                et professionnelle dans les domaines scientifiques.</p>
-
-            <div class="stats-overview">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Années d'expérience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number">2500+</div>
-                    <div class="stat-label">Élèves formés</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Taux de réussite</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="stat-number">25</div>
-                    <div class="stat-label">Professeurs experts</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission">
-        <div class="container">
-            <h2 class="section-title">Notre Mission</h2>
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h3>Excellence, Innovation, Accompagnement</h3>
-                    <p>Depuis plus de 15 ans, le L.AC.S s'impose comme une référence dans l'enseignement scientifique.
-                        Nous formons les scientifiques de demain en leur offrant un environnement d'apprentissage
-                        stimulant et des méthodes pédagogiques innovantes.</p>
-                    <p>Notre approche personnalisée permet à chaque élève de développer son potentiel et d'atteindre
-                        l'excellence dans ses études. Nous croyons fermement que la science est accessible à tous avec
-                        les bonnes méthodes et un accompagnement adapté.</p>
-
-                    <div class="mission-values">
-                        <div class="value-item">
-                            <i class="fas fa-target"></i>
-                            <h4>Excellence</h4>
-                        </div>
-                        <div class="value-item">
-                            <i class="fas fa-lightbulb"></i>
-                            <h4>Innovation</h4>
-                        </div>
-                        <div class="value-item">
-                            <i class="fas fa-handshake"></i>
-                            <h4>Accompagnement</h4>
-                        </div>
-                        <div class="value-item">
-                            <i class="fas fa-heart"></i>
-                            <h4>Bienveillance</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="mission-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-atom"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Classes Section -->
-    <section class="classes">
-        <div class="container">
-            <h2 class="section-title">Nos Classes</h2>
-            <div class="classes-grid">
-                <div class="class-card">
-                    <div class="class-icon">
-                        <i class="fas fa-seedling"></i>
-                    </div>
-                    <h3>Quatrième</h3>
-                    <p>Initiation approfondie aux sciences avec renforcement des bases mathématiques et découverte des
-                        sciences expérimentales.</p>
-                    <div class="class-details">
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>Classes de 18 élèves maximum</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>16h de cours par semaine</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book"></i>
-                            <span>Mathématiques, Sciences Physiques, SVT</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-icon">
-                        <i class="fas fa-atom"></i>
-                    </div>
-                    <h3>Troisième</h3>
-                    <p>Consolidation des acquis scientifiques et préparation au Brevet. Introduction aux méthodes
-                        scientifiques rigoureuses.</p>
-                    <div class="class-details">
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>Classes de 16 élèves maximum</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>18h de cours par semaine</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book"></i>
-                            <span>Mathématiques, Physique-Chimie, SVT</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3>Seconde Scientifique</h3>
-                    <p>Consolidation des bases scientifiques et orientation vers les spécialités. Accompagnement dans le
-                        choix des enseignements de spécialité.</p>
-                    <div class="class-details">
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>Classes de 15 élèves maximum</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>20h de cours par semaine</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book"></i>
-                            <span>Mathématiques, Physique-Chimie, SVT</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h3>Première Scientifique</h3>
-                    <p>Approfondissement des spécialités choisies avec un focus sur la méthodologie et la préparation
-                        aux épreuves anticipées.</p>
-                    <div class="class-details">
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>Classes de 12 élèves maximum</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>24h de cours par semaine</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book"></i>
-                            <span>2 spécialités + enseignements communs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Terminale Scientifique</h3>
-                    <p>Préparation intensive au baccalauréat et aux études supérieures. Accompagnement dans
-                        l'orientation post-bac.</p>
-                    <div class="class-details">
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>Classes de 10 élèves maximum</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>26h de cours par semaine</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book"></i>
-                            <span>2 spécialités + options</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Subjects Section -->
-    <section class="subjects">
-        <div class="container">
-            <h2 class="section-title">Nos Matières</h2>
-
-            <div class="subjects-tabs">
-                <button class="tab-btn active" data-tab="maths">Mathématiques</button>
-                <button class="tab-btn" data-tab="physics">Physique-Chimie</button>
-                <button class="tab-btn" data-tab="bio">Sciences de la Vie</button>
-                <button class="tab-btn" data-tab="other">Autres</button>
-            </div>
-
-            <div class="tab-content active" id="maths">
-                <div class="subjects-grid">
-                    <div class="subject-item">
-                        <i class="fas fa-square-root-alt"></i>
-                        <h4>Algèbre</h4>
-                        <p>Équations, polynômes, suites</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-chart-line"></i>
-                        <h4>Analyse</h4>
-                        <p>Fonctions, dérivées, intégrales</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-shapes"></i>
-                        <h4>Géométrie</h4>
-                        <p>Géométrie plane et dans l'espace</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-dice"></i>
-                        <h4>Probabilités</h4>
-                        <p>Statistiques et probabilités</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="physics">
-                <div class="subjects-grid">
-                    <div class="subject-item">
-                        <i class="fas fa-bolt"></i>
-                        <h4>Électricité</h4>
-                        <p>Circuits, électromagnétisme</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-wave-square"></i>
-                        <h4>Mécanique</h4>
-                        <p>Forces, mouvements, énergies</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-atom"></i>
-                        <h4>Chimie</h4>
-                        <p>Réactions, équilibres, cinétique</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-thermometer-half"></i>
-                        <h4>Thermodynamique</h4>
-                        <p>Chaleur, température, entropie</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="bio">
-                <div class="subjects-grid">
-                    <div class="subject-item">
-                        <i class="fas fa-dna"></i>
-                        <h4>Génétique</h4>
-                        <p>ADN, hérédité, mutations</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-leaf"></i>
-                        <h4>Écologie</h4>
-                        <p>Écosystèmes, biodiversité</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-brain"></i>
-                        <h4>Neurobiologie</h4>
-                        <p>Système nerveux, réflexes</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-heartbeat"></i>
-                        <h4>Physiologie</h4>
-                        <p>Fonctions vitales, métabolisme</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="other">
-                <div class="subjects-grid">
-                    <div class="subject-item">
-                        <i class="fas fa-globe"></i>
-                        <h4>Géologie</h4>
-                        <p>Structure terrestre, roches</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-laptop-code"></i>
-                        <h4>Informatique</h4>
-                        <p>Programmation, algorithmes</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-language"></i>
-                        <h4>Anglais Scientifique</h4>
-                        <p>Terminologie, rédaction</p>
-                    </div>
-                    <div class="subject-item">
-                        <i class="fas fa-book-open"></i>
-                        <h4>Méthodologie</h4>
-                        <p>Techniques de travail, organisation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team">
-        <div class="container">
-            <h2 class="section-title">Notre Équipe d'Encadrement</h2>
-            <div class="team-carousel">
-                <div class="team-slides" id="teamSlides">
-                    <div class="team-member active">
-                        <div class="member-photo">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h3>Dr. Marie Dubois</h3>
-                        <div class="member-role">Directrice Pédagogique</div>
-                        <div class="member-bio">
-                            Agrégée de Physique-Chimie, docteure en Sciences. Avec plus de 20 ans d'expérience dans
-                            l'enseignement scientifique et la pédagogie innovante, elle dirige notre équipe pédagogique
-                            avec passion et expertise. Spécialisée dans le développement de méthodes d'apprentissage
-                            adaptées à chaque profil d'élève.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Physique</span>
-                            <span class="specialty-tag">Chimie</span>
-                            <span class="specialty-tag">Pédagogie</span>
-                            <span class="specialty-tag">Innovation</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">20+</span>
-                                    <span class="label">Années d'expérience</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">500+</span>
-                                    <span class="label">Élèves formés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">15</span>
-                                    <span class="label">Publications</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h3>Prof. Jean Martin</h3>
-                        <div class="member-role">Responsable Mathématiques</div>
-                        <div class="member-bio">
-                            Ancien normalien et agrégé de Mathématiques, le Professeur Martin est notre expert en
-                            préparation aux concours et formations d'excellence. Sa pédagogie rigoureuse et
-                            bienveillante permet aux élèves de développer une solide culture mathématique et de dépasser
-                            leurs limites.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Mathématiques</span>
-                            <span class="specialty-tag">Analyse</span>
-                            <span class="specialty-tag">Concours</span>
-                            <span class="specialty-tag">Excellence</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">25+</span>
-                                    <span class="label">Années d'expérience</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">800+</span>
-                                    <span class="label">Élèves formés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">95%</span>
-                                    <span class="label">Réussite concours</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <h3>Dr. Sophie Laurent</h3>
-                        <div class="member-role">Responsable SVT</div>
-                        <div class="member-bio">
-                            Docteure en Biologie, spécialisée en génétique moléculaire, Dr. Laurent est passionnée par
-                            la transmission des sciences du vivant. Elle rend accessible les concepts les plus complexes
-                            grâce à sa pédagogie interactive et ses nombreuses expériences pratiques.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Biologie</span>
-                            <span class="specialty-tag">Génétique</span>
-                            <span class="specialty-tag">Écologie</span>
-                            <span class="specialty-tag">Recherche</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">15+</span>
-                                    <span class="label">Années d'expérience</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">400+</span>
-                                    <span class="label">Élèves formés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">12</span>
-                                    <span class="label">Publications scientifiques</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-cog"></i>
-                        </div>
-                        <h3>M. Pierre Durand</h3>
-                        <div class="member-role">Conseiller d'Orientation</div>
-                        <div class="member-bio">
-                            Psychologue de l'éducation, spécialisé dans l'orientation scientifique et l'accompagnement
-                            des étudiants. Il aide nos élèves à construire leur projet d'avenir en tenant compte de
-                            leurs aspirations, leurs compétences et les réalités du marché de l'emploi scientifique.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Orientation</span>
-                            <span class="specialty-tag">Psychologie</span>
-                            <span class="specialty-tag">Coaching</span>
-                            <span class="specialty-tag">Accompagnement</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">12+</span>
-                                    <span class="label">Années d'expérience</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">600+</span>
-                                    <span class="label">Élèves accompagnés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">90%</span>
-                                    <span class="label">Satisfaction orientation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-astronaut"></i>
-                        </div>
-                        <h3>Dr. Anne Petit</h3>
-                        <div class="member-role">Coordinatrice Recherche</div>
-                        <div class="member-bio">
-                            Ancienne chercheuse au CNRS, Dr. Petit développe nos programmes de recherche appliquée pour
-                            les élèves. Elle initie nos étudiants aux méthodes de recherche scientifique et coordonne
-                            les projets innovants qui enrichissent leur formation.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Recherche</span>
-                            <span class="specialty-tag">Innovation</span>
-                            <span class="specialty-tag">Projets</span>
-                            <span class="specialty-tag">CNRS</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">18+</span>
-                                    <span class="label">Années recherche</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">25</span>
-                                    <span class="label">Projets menés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">30+</span>
-                                    <span class="label">Publications</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <h3>M. Thomas Moreau</h3>
-                        <div class="member-role">Responsable Vie Scolaire</div>
-                        <div class="member-bio">
-                            Éducateur spécialisé, M. Moreau veille au bien-être de nos élèves et coordonne les activités
-                            extra-scolaires. Il crée un environnement propice à l'épanouissement personnel et
-                            académique, en développant l'esprit d'équipe et la confiance en soi.
-                        </div>
-                        <div class="member-specialties">
-                            <span class="specialty-tag">Éducation</span>
-                            <span class="specialty-tag">Animation</span>
-                            <span class="specialty-tag">Suivi</span>
-                            <span class="specialty-tag">Bien-être</span>
-                        </div>
-                        <div class="member-info">
-                            <div class="member-stats">
-                                <div class="stat-info">
-                                    <span class="number">10+</span>
-                                    <span class="label">Années d'expérience</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">1000+</span>
-                                    <span class="label">Élèves accompagnés</span>
-                                </div>
-                                <div class="stat-info">
-                                    <span class="number">50+</span>
-                                    <span class="label">Activités organisées</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="carousel-controls">
-                <button class="carousel-btn" id="prevBtn">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-indicators" id="indicators">
-                    <button class="indicator active" data-slide="0"></button>
-                    <button class="indicator" data-slide="1"></button>
-                    <button class="indicator" data-slide="2"></button>
-                    <button class="indicator" data-slide="3"></button>
-                    <button class="indicator" data-slide="4"></button>
-                    <button class="indicator" data-slide="5"></button>
-                </div>
-                <button class="carousel-btn" id="nextBtn">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coordinator Section -->
-    <section class="coordinator">
-        <div class="container">
-            <div class="coordinator-content">
-                <div class="coordinator-photo">
-                    <i class="fas fa-user-crown"></i>
-                </div>
-                <div class="coordinator-info">
-                    <h2>Pr. Alexandre Rousseau</h2>
-                    <div class="coordinator-title">Coordinateur Principal & Fondateur</div>
-                    <div class="coordinator-bio">
-                        Ancien élève de l'École Normale Supérieure et docteur en Physique Théorique, le Professeur
-                        Rousseau a fondé le L.AC.S en 2008 avec une vision claire : démocratiser l'excellence
-                        scientifique. Passionné par l'enseignement et l'innovation pédagogique, il a développé une
-                        méthode unique d'apprentissage qui combine rigueur académique et accompagnement personnalisé.
-                        <br><br>
-                        Sous sa direction, le L.AC.S est devenu une référence dans la formation scientifique, formant
-                        plus de 2500 élèves et maintenant un taux de réussite exceptionnel de 98% au baccalauréat.
-                    </div>
-                    <div class="coordinator-achievements">
-                        <div class="achievement-item">
-                            <h4>Formation Académique</h4>
-                            <p>ENS Paris, Doctorat en Physique Théorique, Agrégation de Physique</p>
-                        </div>
-                        <div class="achievement-item">
-                            <h4>Expérience</h4>
-                            <p>25 ans d'enseignement, 15 ans de direction d'établissement</p>
-                        </div>
-                        <div class="achievement-item">
-                            <h4>Publications</h4>
-                            <p>Auteur de 3 manuels scolaires et 15 articles de recherche</p>
-                        </div>
-                        <div class="achievement-item">
-                            <h4>Reconnaissances</h4>
-                            <p>Prix de l'Innovation Pédagogique 2019, Chevalier des Palmes Académiques</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact CTA -->
-    <section class="contact-cta">
-        <div class="container">
-            <h2>Rejoignez l'Excellence Scientifique</h2>
-            <p>Découvrez comment le L.AC.S peut transformer votre parcours scientifique. Contactez-nous pour une
-                consultation personnalisée et visitez nos installations.</p>
-            <div class="cta-buttons">
-                <a href="index.html#contact" class="btn-primary">Nous Contacter</a>
-                <a href="#" class="btn-secondary">Demander une Brochure</a>
-            </div>
-        </div>
-    </section>
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2>Restez informé</h2>
-                <p>Abonnez-vous à notre newsletter pour recevoir toutes les actualités du L.AC.S directement dans votre
-                    boîte mail.</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
-                    <button type="submit" class="newsletter-btn">S'abonner</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="images/logo-full.png" alt="">
-                </div>
-                <div class="footer-links">
-                    <a href="index.html#accueil">Accueil</a>
-                    <a href="apropos.html">À propos</a>
-                    <a href="actualites.html">Actualités</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 L.AC.S - Tous droits réservés</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
         // Team Carousel functionality
@@ -1850,7 +1842,5 @@
 
         console.log('Page À propos L.AC.S chargée avec succès! 🎓');
     </script>
-    <script src="header.js"></script>
-</body>
-
-</html>
+    <script src="{{ url_for('static', filename='script/header.js') }}"></script>
+{% endblock %}

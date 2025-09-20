@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lacs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/admin.css') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-full.png') }}">
+    <!-- Font Awesome pour les icônes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!--La police d'écriture-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <style>
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+        
+        .action-btn i {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <header  class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+        </div>
+        <nav class="menu">
+            <div class="menu-header">
+                <ul>
+                    <li><a href="#">
+                        <i class="fas fa-tachometer-alt icon"></i>Tableau de bord</a></li>
+                    <li><a href="#" class="active">
+                        <i class="fas fa-user-graduate icon"></i>Inscriptions</a></li>
+                    <li><a href="{{url_for('home')}}">
+                        <i class="fas fa-globe icon"></i>Site
+                    </a></li>
+                    <li><a href="{{ url_for('add_article') }}">
+                        <i class="fas fa-edit icon"></i>Ajouter un article
+                        </a></li>
+                    <li><a href="{{ url_for('add_categorie') }}">
+                        <i class="fas fa-tags icon"></i>Ajouter une catégorie
+                        </a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt icon"></i>Déconnexion
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="main-header">
+            <h1>Inscriptions</h1>
+            <div class="main-header-left">
+                <div class="profile">
+                    <img src="{{url_for('static', filename='images/logo.png')}}" alt="">
+                </div>
+                <div onclick="toggleDarkMode()" class="theme">
+                    <i class="fas fa-moon icon"></i>
+                </div>
+            </div> 
+        </div>
+        <div class="main-content">
+            <div class="card">
+                {% if inscriptions %}
+                <div class="card-content">
+                    <table>
+                        <tr class="table-header">
+                            <th>Matricule</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Classe</th>
+                            <th>Programme</th>
+                            <th>Services</th>
+                            <th>Date Inscription</th>
+                            <th>Nom Parent</th>
+                            <th>Contact Parent</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for inscription in inscriptions %}
+                            <tr>
+                                <td>
+                                    {% if inscription.eleve %}
+                                        <strong>{{ inscription.eleve.matricule }}</strong>
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inscription.eleve %}
+                                        {{ inscription.eleve.utilisateur.prenom }} {{ inscription.eleve.utilisateur.nom }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inscription.eleve %}
+                                        {{ inscription.eleve.utilisateur.email }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>{{ inscription.niveau_etude }} {{ inscription.specialites }}</td>
+                                <td>{{ inscription.programme }}</td>
+                                <td>{{ inscription.services }}</td>
+                                <td>{{ inscription.created_at }}</td>
+                                {% if inscription.eleve and inscription.eleve.parent %}
+                                <td>
+                                    
+                                    {{ inscription.eleve.parent.utilisateur.nom }}
+                                </td>
+                                <td>
+                                    {{ inscription.eleve.parent.utilisateur.numero_telephone }}
+                                </td>
+                                {% else %}
+                                <td>
+                                    N/A
+                                </td>
+                                <td>
+                                    N/A
+                                </td>
+                                {% endif %}
+                                <td>
+                                    {% if inscription.eleve %}
+                                        <a href="{{ url_for('voir_bulletins', eleve_id=inscription.eleve.id) }}" class="action-btn">
+                                            <i class="fas fa-file-alt"></i>
+                                            Bulletins
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <p>Aucune inscription trouvée.</p>
+                </div>
+            {% endif %}
+            </div>
+            
+            
+        
+            
+        </div>
+        
+    </main>
+    <footer>
+        <div class="tab-bar">
+            <a href="#">
+                <div class="nav-item">
+                    <i class="fas fa-tachometer-alt icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a href="#" class="active">
+                <div class="nav-item">
+                    <i class="fas fa-user-graduate icon"></i>
+                    <span>Inscriptions</span>
+                </div>
+            </a>
+            <a href="/">
+                <div class="nav-item">
+                    <i class="fas fa-globe icon"></i>
+                    <span>Site</span>
+                </div>
+            </a>
+            <a href="{{ url_for('add_article') }}">
+                <div class="nav-item">
+                    <i class="fas fa-edit icon"></i>
+                    <span>Article</span>
+                </div>
+            </a>
+            <a href="{{ url_for('add_categorie') }}">
+                <div class="nav-item">
+                    <i class="fas fa-tags icon"></i>
+                    <span>Catégorie</span>
+                </div>
+            </a>
+        </div>
+    </footer>
+    <script>
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode')
+        }
+
+        function toggleDarkMode() {
+            let body = document.querySelector('body');
+            body.classList.toggle('dark-mode')
+    
+            // Stockez l'état du mode sombre dans le stockage local
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled')
+            } else {
+                localStorage.setItem('darkMode', 'disabled')
+            }
+        }
+    </script>
+</body>
+</html>

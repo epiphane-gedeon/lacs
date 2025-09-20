@@ -1,18 +1,3 @@
-// Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on links
-document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
-}));
-
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -162,6 +147,11 @@ const animateStats = () => {
 const handleContactForm = () => {
     const form = document.getElementById('contactForm');
 
+    if (!form) {
+        // Pas de formulaire avec cet ID sur cette page
+        return;
+    }
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -237,26 +227,6 @@ const showNotification = (message, type) => {
             notification.remove();
         }, 300);
     }, 5000);
-};
-
-// Navbar scroll effect
-const handleNavbarScroll = () => {
-    const navbar = document.querySelector('.header');
-    let lastScrollTop = 0;
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > 10) {
-            // Menu avec effet glass dès le début du scroll
-            navbar.classList.add('glass-effect');
-        } else {
-            // Menu transparent en haut de page
-            navbar.classList.remove('glass-effect');
-        }
-
-        lastScrollTop = scrollTop;
-    });
 };
 
 // Scroll animations for sections
@@ -350,9 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize other features
     animateStats();
     handleContactForm();
-    handleNavbarScroll();
     handleScrollAnimations();
-    handleInscriptionButton();
     handleCTAButtons();
     handleNewsButtons();
 
