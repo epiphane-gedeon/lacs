@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une catégorie - LACS Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/admin.css') }}">
+    <link rel="styles        /* Styles spécifiques pour cette page */
+        .admin-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .admin-form {
+            padding: 20px 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Assurer que les cartes ont la même hauteur */
+        .card {
+            height: fit-content;
+            min-height: 500px;
+        }
+
+        .card:last-child {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:last-child .card-content {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 400px;
+        }="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo de lacs">
+        </div>
+        
+        <div class="menu">
+            <div>
+                <ul>
+                    <li><a href="#">
+                        <i class="fas fa-tachometer-alt icon"></i>
+                        <span>Dashboard</span>
+                    </a></li>
+                    <li><a href="{{ url_for('liste_inscriptions') }}">
+                        <i class="fas fa-user-graduate icon"></i>
+                        <span>Inscriptions</span>
+                    </a></li>
+                    <li><a href="/">
+                        <i class="fas fa-globe icon"></i>
+                        <span>Voir le site</span>
+                    </a></li>
+                    <li><a href="{{ url_for('add_article') }}">
+                        <i class="fas fa-edit icon"></i>
+                        <span>Ajouter un article</span>
+                    </a></li>
+                    <li><a href="{{ url_for('add_categorie') }}" class="active">
+                        <i class="fas fa-tags icon"></i>
+                        <span>Ajouter une catégorie</span>
+                    </a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt icon"></i>
+                        <span>Déconnexion</span>
+                    </a></li>
+                    <li><a href="#" class="theme" onclick="toggleDarkMode()">
+                        <i class="fas fa-moon icon"></i>
+                        <span>Mode sombre</span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <div class="main-header">
+            <div class="main-header-left">
+                <h1>Ajouter une catégorie</h1>
+            </div>
+            <div class="profile">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Créer une nouvelle catégorie</h2>
+            </div>
+            <div class="card-content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <form method="POST" enctype="multipart/form-data" class="admin-form">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        <label for="nom">{{ form.nom.label.text }}</label>
+                        {{ form.nom(class="form-control", id="nom") }}
+                        {% if form.nom.errors %}
+                            <div class="form-error">
+                                {% for error in form.nom.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">{{ form.description.label.text }}</label>
+                        {{ form.description(class="form-control", id="description", placeholder="Description optionnelle de la catégorie...") }}
+                        {% if form.description.errors %}
+                            <div class="form-error">
+                                {% for error in form.description.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image de la catégorie</label>
+                        <div class="image-upload-container">
+                            {{ form.image() }}
+                            <div class="image-preview" id="categorie-preview" style="display: none;">
+                                <img id="preview-img" alt="Aperçu de l'image" />
+                                <button type="button" class="remove-image" onclick="removeImage('categorie-preview')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="upload-placeholder" id="upload-placeholder-cat">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Cliquez pour sélectionner une image</p>
+                                <small>JPG, PNG, GIF, WEBP (max 5MB)</small>
+                            </div>
+                        </div>
+                        {% if form.image.errors %}
+                            <div class="form-error">
+                                {% for error in form.image.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            {{ form.submit.label.text }}
+                        </button>
+                        <a href="/" class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Liste des catégories existantes -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Catégories existantes</h2>
+            </div>
+            <div class="card-content">
+                {% if categories %}
+                    <div class="categories-grid">
+                        {% for categorie in categories %}
+                            <div class="category-item">
+                                {% if categorie.image_path %}
+                                    <div class="category-image">
+                                        <img src="{{ url_for('static', filename=categorie.image_path) }}" alt="{{ categorie.nom }}">
+                                    </div>
+                                {% endif %}
+                                <div class="category-content">
+                                    <h4>{{ categorie.nom }}</h4>
+                                    {% if categorie.description %}
+                                        <p class="category-description">{{ categorie.description }}</p>
+                                    {% endif %}
+                                    <p class="category-date">
+                                        Créée le {{ categorie.created_at|date_fr }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-tags"></i>
+                        <p>Aucune catégorie créée pour le moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="tab-bar">
+            <a href="#">
+                <div class="nav-item">
+                    <i class="fas fa-tachometer-alt icon"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a href="{{ url_for('liste_inscriptions') }}">
+                <div class="nav-item">
+                    <i class="fas fa-user-graduate icon"></i>
+                    <span>Inscriptions</span>
+                </div>
+            </a>
+            <a href="/">
+                <div class="nav-item">
+                    <i class="fas fa-globe icon"></i>
+                    <span>Site</span>
+                </div>
+            </a>
+            <a href="{{ url_for('add_article') }}">
+                <div class="nav-item">
+                    <i class="fas fa-edit icon"></i>
+                    <span>Article</span>
+                </div>
+            </a>
+            <a href="{{ url_for('add_categorie') }}" class="active">
+                <div class="nav-item">
+                    <i class="fas fa-tags icon"></i>
+                    <span>Catégorie</span>
+                </div>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode')
+        }
+
+        function toggleDarkMode() {
+            let body = document.querySelector('body');
+            body.classList.toggle('dark-mode')
+    
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled')
+            } else {
+                localStorage.setItem('darkMode', 'disabled')
+            }
+        }
+
+        // Fonctions pour la gestion des images
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
+            const placeholder = document.getElementById('upload-placeholder-cat');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = preview.querySelector('img');
+                    img.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(previewId) {
+            const preview = document.getElementById(previewId);
+            const placeholder = document.getElementById('upload-placeholder-cat');
+            const input = document.querySelector('input[type="file"]');
+            
+            preview.style.display = 'none';
+            placeholder.style.display = 'flex';
+            input.value = '';
+        }
+
+        // Gestion du drag & drop
+        const uploadArea = document.querySelector('.image-upload-container');
+        const fileInput = document.querySelector('input[type="file"]');
+
+        uploadArea.addEventListener('click', () => {
+            if (!document.getElementById('categorie-preview').style.display || 
+                document.getElementById('categorie-preview').style.display === 'none') {
+                fileInput.click();
+            }
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                previewImage(fileInput, 'categorie-preview');
+            }
+        });
+
+        // Auto-preview sur changement de fichier
+        fileInput.addEventListener('change', function() {
+            previewImage(this, 'categorie-preview');
+        });
+    </script>
+
+    <style>
+        /* Styles spécifiques pour le formulaire de catégories */
+        .admin-form {
+            padding: 20px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--TextColorLight);
+        }
+
+        .dark-mode .form-group label {
+            color: var(--TextColorDark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--BorderColorLight);
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--BackgroundLight);
+            color: var(--TextColorLight);
+            transition: border-color 0.3s ease;
+        }
+
+        .dark-mode .form-control {
+            border-color: var(--BorderColorDark);
+            background: var(--BackgroundDark);
+            color: var(--TextColorDark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--TextLinksColorLight);
+            box-shadow: 0 0 0 3px rgba(213, 174, 57, 0.1);
+        }
+
+        .dark-mode .form-control:focus {
+            border-color: var(--TextLinksColorDark);
+            box-shadow: 0 0 0 3px rgba(235, 225, 17, 0.1);
+        }
+
+        .form-control[placeholder] {
+            font-style: italic;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Upload d'images */
+        .image-upload-container {
+            position: relative;
+            border: 2px dashed var(--BorderColorLight);
+            border-radius: 8px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--BackgroundLight);
+        }
+
+        .dark-mode .image-upload-container {
+            border-color: var(--BorderColorDark);
+            background: var(--BackgroundDark);
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--TextLinksColorLight);
+        }
+
+        .dark-mode .image-upload-container:hover {
+            border-color: var(--TextLinksColorDark);
+        }
+
+        .image-upload-container.dragover {
+            border-color: var(--TextLinksColorLight);
+            background: var(--BackgroundElementLight);
+        }
+
+        .dark-mode .image-upload-container.dragover {
+            border-color: var(--TextLinksColorDark);
+            background: var(--BackgroundElementDark);
+        }
+
+        .upload-placeholder {
+            text-align: center;
+            color: var(--TextColorLight);
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dark-mode .upload-placeholder {
+            color: var(--TextColorDark);
+        }
+
+        .upload-placeholder i {
+            font-size: 1.8rem;
+            color: var(--TextLinksColorLight);
+        }
+
+        .dark-mode .upload-placeholder i {
+            color: var(--TextLinksColorDark);
+        }
+
+        .upload-placeholder p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .upload-placeholder small {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .remove-image:hover {
+            background: rgba(255, 0, 0, 1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Actions du formulaire */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--BorderColorLight);
+        }
+
+        .dark-mode .form-actions {
+            border-color: var(--BorderColorDark);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--TextLinksColorLight);
+            color: var(--TextColorLight);
+        }
+
+        .btn-primary:hover {
+            background: var(--BorderColorLight);
+            transform: translateY(-1px);
+        }
+
+        .dark-mode .btn-primary {
+            background: var(--TextLinksColorDark);
+            color: var(--TextColorDark);
+        }
+
+        .dark-mode .btn-primary:hover {
+            background: var(--BorderColorDark);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        /* Liste des catégories existantes */
+        .categories-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .category-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--BorderColorLight);
+            border-radius: 8px;
+            background: var(--BackgroundElementLight);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .category-item {
+            border-color: var(--BorderColorDark);
+            background: var(--BackgroundElementDark);
+        }
+
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-image {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--BorderColorLight);
+        }
+
+        .dark-mode .category-image {
+            border-color: var(--BorderColorDark);
+        }
+
+        .category-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-content {
+            flex: 1;
+        }
+
+        .category-content h4 {
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            color: var(--TextColorLight);
+        }
+
+        .dark-mode .category-content h4 {
+            color: var(--TextColorDark);
+        }
+
+        .category-description {
+            margin: 0 0 8px 0;
+            color: var(--TextColorLight);
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .dark-mode .category-description {
+            color: var(--TextColorDark);
+        }
+
+        .category-date {
+            margin: 0;
+            font-size: 12px;
+            color: var(--TextColorLight);
+            opacity: 0.6;
+        }
+
+        .dark-mode .category-date {
+            color: var(--TextColorDark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--TextColorLight);
+            opacity: 0.6;
+        }
+
+        .dark-mode .empty-state {
+            color: var(--TextColorDark);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 16px;
+        }
+    </style>
+</body>
+</html>
