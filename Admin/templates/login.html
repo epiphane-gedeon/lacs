@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %}LACS - Connexion{% endblock %} {%
+block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>LACS</h1>
+      <p>Logiciel d'Administration et de Contrôle Scolaire</p>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-error"><strong>Erreur :</strong> {{ error }}</div>
+    {% endif %}
+
+    <form method="POST" class="auth-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="admin@lacs.com"
+          value="{{ email or '' }}"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        Se connecter
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p class="text-muted">Interface de test - LACS 2026</p>
+      <small>Comptes de test disponibles :</small>
+      <ul class="test-accounts">
+        <li><strong>Admin :</strong> admin@lacs.com / password</li>
+        <li><strong>Formateur :</strong> formateur@lacs.com / password</li>
+        <li><strong>Élève :</strong> eleve@lacs.com / password</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

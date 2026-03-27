@@ -1,0 +1,544 @@
+{% extends "base.html" %} {% block title %}LACS - Dashboard{% endblock %} {%
+block content %}
+<div class="dashboard">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h2>LACS</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="overview">
+        <span class="icon">📊</span>
+        <span>Aperçu</span>
+      </button>
+      <button class="nav-item" data-tab="eleves">
+        <span class="icon">👥</span>
+        <span>Élèves</span>
+      </button>
+      <button class="nav-item" data-tab="classes">
+        <span class="icon">🏫</span>
+        <span>Classes</span>
+      </button>
+      <button class="nav-item" data-tab="inscriptions">
+        <span class="icon">📝</span>
+        <span>Inscriptions</span>
+      </button>
+      <button class="nav-item" data-tab="formateurs">
+        <span class="icon">👨‍🏫</span>
+        <span>Formateurs</span>
+      </button>
+      <button class="nav-item" data-tab="matieres">
+        <span class="icon">📚</span>
+        <span>Matières</span>
+      </button>
+      <button class="nav-item" data-tab="evaluations">
+        <span class="icon">📋</span>
+        <span>Évaluations</span>
+      </button>
+      <button class="nav-item" data-tab="notes">
+        <span class="icon">⭐</span>
+        <span>Notes</span>
+      </button>
+      <button class="nav-item" data-tab="api-test">
+        <span class="icon">🔧</span>
+        <span>Testeur API</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <p>{{ user_email }}</p>
+      </div>
+      <a href="{{ url_for('logout') }}" class="btn btn-logout">Déconnexion</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- HEADER -->
+    <header class="dashboard-header">
+      <h1 id="page-title">Aperçu</h1>
+      <div class="header-right">
+        <div class="theme-toggle" onclick="toggleDarkMode()">
+          <span class="icon">🌙</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENU ONGLETS -->
+    <div class="tabs-container">
+      <!-- TAB: OVERVIEW -->
+      <div class="tab-content active" id="overview-tab">
+        <div class="card">
+          <h2>État de l'API</h2>
+          <div id="api-status" class="status-box">
+            <p>Vérification...</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Statistiques Rapides</h3>
+            <div class="stat-box">
+              <div class="stat-item">
+                <span class="stat-label">Élèves</span>
+                <span class="stat-value" id="stat-eleves">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Classes</span>
+                <span class="stat-value" id="stat-classes">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Formateurs</span>
+                <span class="stat-value" id="stat-formateurs">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Informations</h3>
+            <p><strong>API URL :</strong> <code>{{ api_base }}</code></p>
+            <p><strong>Date :</strong> <span id="current-date"></span></p>
+            <p class="text-muted">Interface de test LACS 2026</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: ELEVES -->
+      <div class="tab-content" id="eleves-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Élèves</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('eleve-form')"
+            >
+              + Ajouter un élève
+            </button>
+          </div>
+
+          <form id="eleve-form" class="form-section hidden">
+            <h3>Créer un nouvel élève</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nom *</label>
+                <input
+                  type="text"
+                  id="eleve-name"
+                  placeholder="Dupont"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Prénom *</label>
+                <input
+                  type="text"
+                  id="eleve-firstname"
+                  placeholder="Jean"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email *</label>
+                <input
+                  type="email"
+                  id="eleve-email"
+                  placeholder="jean@lacs.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Mot de passe *</label>
+                <input
+                  type="password"
+                  id="eleve-password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createEleve()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="eleves-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CLASSES -->
+      <div class="tab-content" id="classes-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Classes</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('classe-form')"
+            >
+              + Ajouter une classe
+            </button>
+          </div>
+
+          <form id="classe-form" class="form-section hidden">
+            <h3>Créer une nouvelle classe</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nom de la classe *</label>
+                <input
+                  type="text"
+                  id="classe-name"
+                  placeholder="Terminale S1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Année scolaire *</label>
+                <select id="classe-annee_scolaire_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createClasse()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="classes-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: INSCRIPTIONS -->
+      <div class="tab-content" id="inscriptions-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Inscriptions</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('inscription-form')"
+            >
+              + Ajouter une inscription
+            </button>
+          </div>
+
+          <form id="inscription-form" class="form-section hidden">
+            <h3>Créer une nouvelle inscription</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Élève *</label>
+                <select id="inscription-eleve_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Classe *</label>
+                <select id="inscription-classe_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Année scolaire *</label>
+                <select id="inscription-annee_scolaire_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="inscription-is_ancien" />
+                  Ancien élève
+                </label>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createInscription()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="inscriptions-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: FORMATEURS -->
+      <div class="tab-content" id="formateurs-tab">
+        <div class="card">
+          <h2>Formateurs</h2>
+          <div id="formateurs-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MATIERES -->
+      <div class="tab-content" id="matieres-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Matières</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('matiere-form')"
+            >
+              + Ajouter une matière
+            </button>
+          </div>
+
+          <form id="matiere-form" class="form-section hidden">
+            <h3>Créer une nouvelle matière</h3>
+            <div class="form-group">
+              <label>Nom de la matière *</label>
+              <input
+                type="text"
+                id="matiere-name"
+                placeholder="Mathématiques"
+                required
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createMatiere()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="matieres-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: EVALUATIONS -->
+      <div class="tab-content" id="evaluations-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Évaluations</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('evaluation-form')"
+            >
+              + Ajouter une évaluation
+            </button>
+          </div>
+
+          <form id="evaluation-form" class="form-section hidden">
+            <h3>Créer une nouvelle évaluation</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Titre *</label>
+                <input
+                  type="text"
+                  id="evaluation-titre"
+                  placeholder="Examen 1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Matière *</label>
+                <select id="evaluation-matiere_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Classe *</label>
+                <select id="evaluation-classe_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Année scolaire *</label>
+                <select id="evaluation-annee_scolaire_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Date</label>
+                <input type="datetime-local" id="evaluation-date" />
+              </div>
+              <div class="form-group">
+                <label>Barème</label>
+                <input
+                  type="number"
+                  id="evaluation-bareme"
+                  value="20"
+                  min="1"
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createEvaluation()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="evaluations-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: NOTES -->
+      <div class="tab-content" id="notes-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Gestion des Notes</h2>
+            <button
+              class="btn btn-sm btn-primary"
+              onclick="toggleForm('note-form')"
+            >
+              + Ajouter une note
+            </button>
+          </div>
+
+          <form id="note-form" class="form-section hidden">
+            <h3>Attribuer une note</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Élève *</label>
+                <select id="note-eleve_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Évaluation *</label>
+                <select id="note-evaluation_id" required>
+                  <option value="">-- Sélectionner --</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Valeur *</label>
+                <input type="number" id="note-valeur" step="0.5" required />
+              </div>
+              <div class="form-group">
+                <label>Commentaire</label>
+                <textarea
+                  id="note-commentaire"
+                  placeholder="Remarques..."
+                ></textarea>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createNote()"
+            >
+              Créer
+            </button>
+          </form>
+
+          <div id="notes-list" class="list-container">
+            <p class="text-muted">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: API TESTER -->
+      <div class="tab-content" id="api-test-tab">
+        <div class="card">
+          <h2>Testeur API Générique</h2>
+          <div class="form-group">
+            <label>Endpoint (ex: /eleves, /classes/123)</label>
+            <input type="text" id="api-endpoint" placeholder="/api/endpoint" />
+          </div>
+          <div class="form-group">
+            <label>Méthode</label>
+            <div class="button-group">
+              <button
+                type="button"
+                class="btn btn-sm"
+                onclick="setApiMethod('GET')"
+              >
+                GET
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                onclick="setApiMethod('POST')"
+              >
+                POST
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                onclick="setApiMethod('PUT')"
+              >
+                PUT
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                onclick="setApiMethod('DELETE')"
+              >
+                DELETE
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                onclick="setApiMethod('PATCH')"
+              >
+                PATCH
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Payload JSON (pour POST/PUT/PATCH)</label>
+            <textarea
+              id="api-payload"
+              placeholder='{"key": "value"}'
+            ></textarea>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="testApi()">
+            Envoyer la requête
+          </button>
+
+          <div id="api-response" class="response-box hidden">
+            <h3>Réponse</h3>
+            <pre id="api-response-content"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MESSAGE TOAST -->
+<div id="toast" class="toast"></div>
+
+{% endblock %} {% block scripts %}
+<script>
+  const API_BASE = "{{ api_base }}";
+  const userEmail = "{{ user_email }}";
+  let currentApiMethod = "GET";
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
